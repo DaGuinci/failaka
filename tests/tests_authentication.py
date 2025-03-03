@@ -42,35 +42,19 @@ class UserTestCases(AuthAPITestCase):
             'password': 'password'
             }, format='json')
         self.assertEqual(response.status_code, 201)  # 201 Created
-        self.assertEqual(json.loads(response.content)['username'],'artemis')
+        self.assertEqual(json.loads(response.content)['email'],'artemis@olympe.gr')
 
     # user creation with existing email
     def test_email_exists(self):
         url = reverse_lazy('auth_register')
         response = self.client.post(url, {
             'username': 'hera',
-            'email': 'artemis@olympe.gr',
+            'email': 'demeter@olympe.gr',
             'password': 'password'
             }, format='json')
         self.assertEqual(response.status_code, 400)  # 400 Bad Request
         self.assertEqual(response.json(),
                          self.expected_reponses_content('email_exists'))
-
-
-
-    # # Création d'un utilisateur trop jeune
-    # def test_is_too_young(self):
-    #     url = reverse_lazy('auth_register')
-    #     response = self.client.post(url, {
-    #         'username': 'agamemnon',
-    #         'password': 'pass',
-    #         'age': 14,
-    #         'can_be_contacted': True,
-    #         'can_data_be_shared': False
-    #         }, format='json')
-    #     self.assertEqual(response.status_code, 400)  # 400 Bad Request
-    #     self.assertEqual(response.json(),
-    #                      self.expected_reponses_content('is_too_young'))
 
     # Visualisation et modification de profil utilisateur
     # def test_can_view_profile(self):

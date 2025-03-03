@@ -11,7 +11,6 @@ class User(AbstractUser):
 #   - role: Enum
 #   - email: String
 #   - password: String
-#   - created_date: Datetime
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = (["password"])

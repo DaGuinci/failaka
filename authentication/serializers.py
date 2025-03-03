@@ -35,7 +35,13 @@ class RegisterSerializer(ModelSerializer):
             'role',
             'password'
             )
-        
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise ValidationError("A user with this email already exists.")
+        return value
+
+
     def create(self, validated_data):
         # check role is not null
         if 'role' not in validated_data or validated_data['role'] not in ['admin', 'valid']:
