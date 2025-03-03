@@ -33,11 +33,6 @@ class UserViewset(ModelViewSet):
 
     serializer_class = UserSerializer
 
-    # def list(self, request):
-    #     queryset = User.objects.all()
-    #     serializer = UserSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-
     def get_queryset(self):
         return User.objects.all()
 

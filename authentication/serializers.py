@@ -31,7 +31,6 @@ class RegisterSerializer(ModelSerializer):
         fields = (
             'first_name',
             'last_name',
-            'username',
             'email',
             'role',
             'password'
@@ -45,7 +44,6 @@ class RegisterSerializer(ModelSerializer):
         user = User.objects.create(
             first_name=validated_data['first_name'] if 'first_name' in validated_data else '',
             last_name=validated_data['last_name'] if 'last_name' in validated_data else '',
-            username=validated_data['username'],
             email=validated_data['email'],
             role=validated_data['role']
         )

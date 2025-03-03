@@ -45,7 +45,7 @@ class UserTestCases(AuthAPITestCase):
         self.assertEqual(json.loads(response.content)['username'],'artemis')
 
     # user creation with existing email
-    def untest_email_exists(self):
+    def test_email_exists(self):
         url = reverse_lazy('auth_register')
         response = self.client.post(url, {
             'username': 'hera',

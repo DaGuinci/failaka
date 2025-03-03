@@ -7,7 +7,7 @@ class AuthenticationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'authentication'
 
-    # Réinitialise et recharge les données
+    # Drop and recreate the database:
     def ready(self):
         if os.environ.get('DJANGO_ENV') == 'development':
             from django.contrib.auth.models import User
