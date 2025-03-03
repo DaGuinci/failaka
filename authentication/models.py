@@ -15,10 +15,11 @@ class User(AbstractUser):
 
     class Role(models.TextChoices):
         ADMIN = 'admin'
-        USER = 'user'
+        VALID = 'validator'
+        NOROLE = 'norole'
 
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(max_length=150, unique=True, blank=False, null=False)
-    role = models.CharField(max_length=5, choices=Role.choices, default=Role.USER)
+    role = models.CharField(max_length=9, choices=Role.choices, default=Role.NOROLE)

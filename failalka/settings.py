@@ -38,8 +38,6 @@ if DEBUG is True:
 elif DEBUG is False:
     ALLOWED_HOSTS = ["*"]
 
-print('DEBUG:', DEBUG)
-
 # Récupère la variable DJANGO_ENV avec 'production' comme valeur par défaut
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'production')
 

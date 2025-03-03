@@ -37,12 +37,10 @@ class RegisterSerializer(ModelSerializer):
             'password'
             )
         
-
-
     def create(self, validated_data):
         # check role is not null
-        if 'role' not in validated_data or validated_data['role'] not in ['admin', 'user']:
-            validated_data['role'] = 'user'
+        if 'role' not in validated_data or validated_data['role'] not in ['admin', 'valid']:
+            validated_data['role'] = 'norole'
 
         user = User.objects.create(
             first_name=validated_data['first_name'] if 'first_name' in validated_data else '',
