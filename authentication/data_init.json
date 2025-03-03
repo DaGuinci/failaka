@@ -1,0 +1,10 @@
+[
+    {
+        "model": "authentication.user",
+        "fields": {
+            "username": "admin",
+            "email": "admin@auth.com"
+            
+        }
+    }
+]

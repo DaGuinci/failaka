@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import datetime
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(utj=_uqhn#_2r-z6byq3e()ycbn*=b@&@yuc(w(%&f=z1=0km'
+SECRET_KEY = 'django-insecure-gq=y!&p3a1d0vix^+2u_ubaogudicpnu_8x@j-+v1b(!dd%r+@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# Charge les variables d'environnement depuis le fichier .env
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+print('DJANGO_ENV:', os.getenv('DJANGO_ENV'))
+
+# Récupère la variable DJANGO_ENV avec 'production' comme valeur par défaut
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'production')
 
 
 # Application definition
