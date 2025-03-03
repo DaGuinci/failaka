@@ -22,17 +22,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gq=y!&p3a1d0vix^+2u_ubaogudicpnu_8x@j-+v1b(!dd%r+@'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 # Charge les variables d'environnement depuis le fichier .env
 load_dotenv(os.path.join(BASE_DIR, '.env'))
-print('DJANGO_ENV:', os.getenv('DJANGO_ENV'))
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+if os.getenv('DJANGO_ENV') == 'development':
+    DEBUG = True
+
+if DEBUG is True:
+    ALLOWED_HOSTS = []
+elif DEBUG is False:
+    ALLOWED_HOSTS = ["*"]
+
+print('DEBUG:', DEBUG)
 
 # Récupère la variable DJANGO_ENV avec 'production' comme valeur par défaut
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'production')
