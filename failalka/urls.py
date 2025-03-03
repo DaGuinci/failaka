@@ -1,5 +1,5 @@
 """
-URL configuration for failalka project.
+URL configuration for failalkaApi project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -15,8 +15,60 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView
+    )
+
+from authentication.views import UserViewset, RegisterViewset
+# from api.views import (
+#     ProjectViewset,
+#     IssueViewset,
+#     CommentViewset)
+
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
+# from rest_framework_swagger.views import get_swagger_view
+
+# schema_view = get_swagger_view(title='Pastebin API')
+
+
+authRouter = routers.SimpleRouter()
+# Creer un user (tous)
+# Modifier son profil
+# Modifier un user (admin)
+authRouter.register('user', UserViewset, basename='user')
+# authRouter.register('admin/user', AdminUserViewset, basename='admin-user')
+
+apiRouter = routers.SimpleRouter()
+
+# Creer un nouveau projet (utilisateur)
+# Ajouter un contributeur (auteur)
+# Supprimer un contributeur (auteur)
+# Modifier le projet (auteur)
+# apiRouter.register('project', ProjectViewset, basename='project')
+
+
+# Créer une issue (contributeur)
+# Modifier une issue (auteur)
+# apiRouter.register('issue', IssueViewset, basename='issue')
+
+# Créer un commentaire (contributeur)
+# Modifier un commentaire (auteur)
+# apiRouter.register('comment', CommentViewset, basename='comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/all/', UserViewset.as_view({'get': 'list'}), name='user-list'),
+    path('users/register/', RegisterViewset.as_view(), name='auth_register'),
+    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('users/', include(authRouter.urls)),
+    path('api/', include(apiRouter.urls)),
+    path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
+    path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
