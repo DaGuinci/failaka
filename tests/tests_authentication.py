@@ -28,11 +28,35 @@ class AuthAPITestCase(TestSetupAPITestCase):
 class UserTestCases(AuthAPITestCase):
 
     # Get user list
-    def test_can_get_users_list(self):
+    def test_non_auth_cant_get_users_list(self):
         url = reverse_lazy('user-list')
         response = self.client.get(url)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('unauthenticated'))
+        
+    def test_user_cant_get_users_list(self):
+        url = reverse_lazy('user-list')
+        self.client.force_authenticate(user=self.hades)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
+        
+    def test_validator_cant_get_users_list(self):
+        url = reverse_lazy('user-list')
+        self.client.force_authenticate(user=self.athena)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
+    
+    def test_admin_can_get_users_list(self):
+        url = reverse_lazy('user-list')
+        self.client.force_authenticate(user=self.hera)
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['results'][0]['username'], 'Zeus_superuser')
+        self.assertEqual(len(response.data['results']), 5)
 
     # User creation
     def test_any_can_register(self):

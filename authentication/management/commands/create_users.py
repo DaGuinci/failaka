@@ -34,7 +34,7 @@ class Command(BaseCommand):
             {
                 'email': 'visitor@failalka.com',
                 'password': 'password',
-                'role': 'norole',
+                'role': 'visitor',
                 'is_superuser': False,
                 'is_staff': False
             },

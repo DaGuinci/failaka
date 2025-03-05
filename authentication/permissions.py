@@ -11,8 +11,7 @@ class UserPermission(BasePermission):
 
     def has_permission(self, request, view):
         if view.action == 'list':
-            return True
-            # return request.user.is_authenticated and request.user.is_superuser
+            return request.user.is_authenticated and (request.user.is_superuser or request.user.role == 'admin')
         else:
             return view.action in ['retrieve', 'update', 'partial_update', 'destroy']
 

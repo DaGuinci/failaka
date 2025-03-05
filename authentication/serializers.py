@@ -35,6 +35,7 @@ class RegisterSerializer(ModelSerializer):
             'role',
             'password'
             )
+        extra_kwargs = {"password": {"write_only": True}}
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
@@ -43,9 +44,8 @@ class RegisterSerializer(ModelSerializer):
 
 
     def create(self, validated_data):
-        # check role is not null
-        if 'role' not in validated_data or validated_data['role'] not in ['admin', 'valid']:
-            validated_data['role'] = 'norole'
+        # set default role to visitor
+        validated_data['role'] = 'visitor'
 
         user = User.objects.create(
             first_name=validated_data['first_name'] if 'first_name' in validated_data else '',

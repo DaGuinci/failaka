@@ -58,31 +58,6 @@ class TestSetupAPITestCase(APITestCase):
             role='user'
         )
 
-        # # Nomination d'un contributeur
-        # cls.contributing = Contributing.objects.create(
-        #     contributor=cls.ulysse,
-        #     project=cls.project_1
-        # )
-
-        # # Creation d'un issue
-        # cls.issue_1 = Issue.objects.create(
-        #     author=cls.ulysse,
-        #     title='Artemis semble em colère',
-        #     description='Agamemnon l\'a provoquée',
-        #     status='TD',
-        #     priority='MD',
-        #     assigned_to=cls.achille,
-        #     tag='TAS',
-        #     project=cls.project_1
-        # )
-
-        # # Creation d'un comment
-        # cls.comment_1 = Comment.objects.create(
-        #     author=cls.achille,
-        #     description='Des nouvelles de Patrocle ?',
-        #     issue=cls.issue_1,
-        # )
-
     @classmethod
     def check_in_terminal(self, items):
         print('----------------- Comparing values -----------------')
