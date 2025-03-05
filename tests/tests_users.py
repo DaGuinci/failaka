@@ -1,5 +1,3 @@
-import json
-
 from django.urls import reverse_lazy
 
 from .tests_data_setup import TestSetupAPITestCase
@@ -60,18 +58,19 @@ class UserTestCases(UsersAPITestCase):
 
     # User creation
     def test_any_can_register(self):
-        url = reverse_lazy('auth_register')
+        url = reverse_lazy('user-register')
         response = self.client.post(url, {
             'username': 'artemis',
             'email': 'artemis@olympe.gr',
             'password': 'password'
             }, format='json')
         self.assertEqual(response.status_code, 201)  # 201 Created
-        self.assertEqual(json.loads(response.content)['email'],'artemis@olympe.gr')
-
+        self.assertEqual(response.json(), 
+                        {'message': 'User created successfully'})
+        
     # user creation with existing email
     def test_email_exists(self):
-        url = reverse_lazy('auth_register')
+        url = reverse_lazy('user-register')
         response = self.client.post(url, {
             'username': 'hera',
             'email': 'hera@olympe.gr',
@@ -83,7 +82,7 @@ class UserTestCases(UsersAPITestCase):
 
     # user creation with invalid email
     def test_invalid_email(self):
-        url = reverse_lazy('auth_register')
+        url = reverse_lazy('user-register')
         response = self.client.post(url, {
             'username': 'hera',
             'email': 'hera',
