@@ -23,25 +23,40 @@ class TestSetupAPITestCase(APITestCase):
     def setUpTestData(cls):
         cls.client = APIClient()
 
-        # Création de deux users
+        # Superuser
         UserModel = get_user_model()
         cls.zeus = UserModel.objects.create_superuser('Zeus_superuser', 'admin@olympe.gr', 'pass')
 
-        cls.demeter = User.objects.create(
-            username='demeter_admin',
-            email='demeter@olympe.gr',
+        # Admin
+        cls.hera = User.objects.create(
+            username='hera_admin',
+            email='hera@olympe.gr',
             password='pass',
             role='admin'
         )
 
+        # validator
+        cls.athena = User.objects.create(
+            username='athena_validator',
+            email='athena@olympe.gr',
+            password='pass',
+            role='validator'
+        )
 
-        # # Création de projet
-        # cls.project_1 = Project.objects.create(
-        #     title='Prise de Troie',
-        #     author=cls.achille,
-        #     description='Récupérer Hélène',
-        #     type='FE'
-        # )
+        # User
+        cls.hades = User.objects.create(
+            username='hades_user',
+            email='hades@olympe.gr',
+            password='pass',
+            role='user'
+        )
+
+        cls.ares = User.objects.create(
+            username='ares_user',
+            email='ares@olympe.gr',
+            password='pass',
+            role='user'
+        )
 
         # # Nomination d'un contributeur
         # cls.contributing = Contributing.objects.create(

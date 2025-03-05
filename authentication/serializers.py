@@ -21,7 +21,7 @@ class UserSerializer(ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def __str__(self):
-        return self.username
+        return self.email
 
 
 class RegisterSerializer(ModelSerializer):

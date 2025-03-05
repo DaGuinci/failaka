@@ -9,18 +9,19 @@ class AuthAPITestCase(TestSetupAPITestCase):
     def expected_reponses_content(self, test):
         if test == 'email_exists':
             return {'email': ['user with this email already exists.']}
-        if test == 'username_exists':
-            return {'username': ['Cet utilisateur existe déjà.']}
         
         if test == 'unauthenticated':
-            return {'detail': "Informations d'authentification non fournies."}
-        # if test == 'modified_profile':
-        #     return {
-        #         'username': 'hector',
-        #         'age': 27,
-        #         'can_be_contacted': True,
-        #         'can_data_be_shared': False
-        #         }
+            return {'detail': "Authentication credentials were not provided."}
+        
+        if test == 'invalid_email':
+            return {'email': ['Enter a valid email address.']}
+        
+        if test == 'unauthenticated':
+            return {'detail': "Authentication credentials were not provided."}
+        
+        if test == 'permission_denied':
+            return {'detail': "You do not have permission to perform this action."}
+
         return None
 
 
@@ -49,103 +50,179 @@ class UserTestCases(AuthAPITestCase):
         url = reverse_lazy('auth_register')
         response = self.client.post(url, {
             'username': 'hera',
-            'email': 'demeter@olympe.gr',
+            'email': 'hera@olympe.gr',
             'password': 'password'
             }, format='json')
         self.assertEqual(response.status_code, 400)  # 400 Bad Request
         self.assertEqual(response.json(),
-                         self.expected_reponses_content('email_exists'))
+                        self.expected_reponses_content('email_exists'))
 
-    # Visualisation et modification de profil utilisateur
-    # def test_can_view_profile(self):
-    #     url = reverse_lazy('user-detail', kwargs={'pk': self.hector.id, })
+    # user creation with invalid email
+    def test_invalid_email(self):
+        url = reverse_lazy('auth_register')
+        response = self.client.post(url, {
+            'username': 'hera',
+            'email': 'hera',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('invalid_email'))
 
-    #     # depuis user non authentifié
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 401)  # 401 Unauthorized
+    # user retrieval
+    def test_non_auth_cant_get_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('unauthenticated'))
 
-    #     # depuis autre user non authentifié
-    #     self.client.force_authenticate(user=self.achille)
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 403)  # 403 Forbidden
+    def test_other_user_cant_get_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.ares)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
+    
+    def test_user_can_get_self_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.hades)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], 'hades@olympe.gr')
+    
+    def test_validator_cant_get_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.athena)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
 
-    #     # depuis user sur son profil
-    #     self.client.force_authenticate(user=self.hector)
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 200)  # 200 OK
+    def test_superuser_can_get_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.zeus)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], 'hades@olympe.gr')
 
-    #     # superuser
-    #     self.client.force_authenticate(user=self.zeus)
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 200)  # 200 OK
+    def test_admin_can_get_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.zeus)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], 'hades@olympe.gr')
 
-    # test des update
-    # def test_can_update_profile(self):
-    #     post_data = {
-    #         'username': 'hector',
-    #         'password': 'passwordTest',
-    #         'age': 27,
-    #         'can_be_contacted': True,
-    #         'can_data_be_shared': False
-    #         }
-    #     url = reverse_lazy('user-detail', kwargs={'pk': self.hector.id, })
+    # user update
+    def test_non_auth_cant_update_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        response = self.client.patch(url, {
+            'username': 'hades',
+            'email': 'hades@gmail.com',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('unauthenticated'))
+    
+    def test_other_user_cant_update_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.ares)
+        response = self.client.patch(url, {
+            'username': 'hades',
+            'email': 'hades@gmail.com',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
+        
+    def test_user_can_update_self_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.hades)
+        response = self.client.patch(url, {
+            'username': 'hades',
+            'email': 'hades@gmail.com',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], 'hades@gmail.com')
+    
+    def test_validator_cant_update_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.athena)
+        response = self.client.patch(url, {
+            'username': 'hades',
+            'email': 'hades@gmail.com',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
+    
+    def test_admin_can_update_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.hera)
+        response = self.client.patch(url, {
+            'username': 'hades',
+            'email': 'hades@gmail.com',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], 'hades@gmail.com')
 
-    #     # test methode post
-    #     response = self.client.post(url, post_data, format='json')
-    #     self.assertEqual(response.status_code, 401)  # 401 Unauthorized
+    def test_superuser_can_update_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.zeus)
+        response = self.client.patch(url, {
+            'username': 'hades',
+            'email': 'hades@gmail.com',
+            'password': 'password'
+            }, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], 'hades@gmail.com')
 
-    #     # sans authentification
-    #     response = self.client.patch(url, post_data, format='json')
-    #     self.assertEqual(response.status_code, 401)
 
-    #     # depuis autre user
-    #     self.client.force_authenticate(user=self.achille)
-    #     response = self.client.patch(url, post_data, format='json')
-    #     self.assertEqual(response.status_code, 403)
+    # user deletion
 
-    #     # depuis user lui-même
-    #     self.client.force_authenticate(user=self.hector)
-    #     response = self.client.patch(url, post_data, format='json')
-    #     response.json().pop('id')
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(response.json(),
-    #                      self.expected_reponses_content('modified_profile'))
+    def test_non_auth_cant_delete_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('unauthenticated'))
+        
+    def test_other_user_cant_delete_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.ares)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
+        
+    def test_user_can_delete_self_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.hades)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+    
+    def test_validator_cant_delete_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.athena)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                        self.expected_reponses_content('permission_denied'))
 
-    # test de suppression
-    # def test_can_delete_profile(self):
-    #     url = reverse_lazy('user-detail', kwargs={'pk': self.hector.id, })
-
-    #     # user non authentifié
-    #     response = self.client.delete(url)
-    #     self.assertEqual(response.status_code, 401)
-
-    #     # autre user
-    #     self.client.force_authenticate(user=self.achille)
-    #     response = self.client.delete(url)
-    #     self.assertEqual(response.status_code, 403)
-
-    #     # lui même
-    #     self.client.force_authenticate(user=self.hector)
-    #     response = self.client.delete(url)
-    #     self.assertEqual(response.status_code, 204)  # 204 Ok, No Content
-    #     # l'user est il bien supprimé ?
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 404)  # 404 Not Found
-
-    # test de l'appel de liste d'users
-    # def test_can_get_users_list(self):
-    #     url = reverse_lazy('user-list')
-
-    #     # user non authentifié
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 401)  # 401 Unauthorized
-
-    #     # user authentifié
-    #     self.client.force_authenticate(user=self.achille)
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 403)
-
-    #     # Superuser
-    #     self.client.force_authenticate(user=self.zeus)
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 200)
+    def test_admin_can_delete_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.hera)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+    
+    def test_superuser_can_delete_user(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.zeus)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
