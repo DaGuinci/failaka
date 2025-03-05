@@ -21,6 +21,9 @@ class UserPermission(BasePermission):
         elif request.user.is_authenticated and request.user.role == 'admin':
             return True
         elif request.user == obj:
+            # dont allow role change
+            if request.data.get('role') and request.data.get('role') != obj.role:
+                return False
             return True
 
         return False

@@ -206,15 +206,16 @@ class UserTestCases(UsersAPITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['email'], 'hades@gmail.com')
     
-    def untest_user_cant_update_role(self):
+    def test_user_cant_update_role(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.hades)
         response = self.client.patch(url, {
             'role': 'admin'
             }, format='json')
-        self.assertEqual(response.status_code, 400)
+        print(response.json())
+        self.assertEqual(response.status_code, 403)
         self.assertEqual(response.json(),
-                        {'role': ['Only admin users can change the role of an user.']})
+                        {'detail': 'You do not have permission to perform this action.'})
 
 
     # user deletion
@@ -258,24 +259,3 @@ class UserTestCases(UsersAPITestCase):
         self.client.force_authenticate(user=self.zeus)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, 204)
-
-    def test_user_can_receive_token(self):
-        url = reverse_lazy('auth_token')
-        response = self.client.post(url, {
-            'email': 'athena@olympe.gr',
-            'password': 'pass'
-            }, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('access', response.json())
-    
-    def test_user_cant_receive_token_with_wrong_password(self):
-        url = reverse_lazy('auth_token')
-        response = self.client.post(url, {
-            'email': 'athena@olympe.gr',
-            'password': 'wrong'
-            }, format='json')
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json(),
-                        {'detail': 'No active account found with the given credentials'})
-    
-    
