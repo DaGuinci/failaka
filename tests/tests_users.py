@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 from .tests_data_setup import TestSetupAPITestCase
 
-class AuthAPITestCase(TestSetupAPITestCase):
+class UsersAPITestCase(TestSetupAPITestCase):
 
     def expected_reponses_content(self, test):
         if test == 'email_exists':
@@ -25,7 +25,7 @@ class AuthAPITestCase(TestSetupAPITestCase):
         return None
 
 
-class UserTestCases(AuthAPITestCase):
+class UserTestCases(UsersAPITestCase):
 
     # Get user list
     def test_non_auth_cant_get_users_list(self):
@@ -206,10 +206,19 @@ class UserTestCases(AuthAPITestCase):
             }, format='json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['email'], 'hades@gmail.com')
+    
+    def untest_user_cant_update_role(self):
+        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
+        self.client.force_authenticate(user=self.hades)
+        response = self.client.patch(url, {
+            'role': 'admin'
+            }, format='json')
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(),
+                        {'role': ['Only admin users can change the role of an user.']})
 
 
     # user deletion
-
     def test_non_auth_cant_delete_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         response = self.client.delete(url)
@@ -250,3 +259,24 @@ class UserTestCases(AuthAPITestCase):
         self.client.force_authenticate(user=self.zeus)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, 204)
+
+    def test_user_can_receive_token(self):
+        url = reverse_lazy('auth_token')
+        response = self.client.post(url, {
+            'email': 'athena@olympe.gr',
+            'password': 'pass'
+            }, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('access', response.json())
+    
+    def test_user_cant_receive_token_with_wrong_password(self):
+        url = reverse_lazy('auth_token')
+        response = self.client.post(url, {
+            'email': 'athena@olympe.gr',
+            'password': 'wrong'
+            }, format='json')
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(),
+                        {'detail': 'No active account found with the given credentials'})
+    
+    

@@ -58,3 +58,41 @@ class RegisterSerializer(ModelSerializer):
         user.save()
 
         return user
+
+class UpdateUserSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'role',
+            )
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise ValidationError("A user with this email already exists.")
+        return value
+    
+    def validate_role(self, value):
+        # get request
+        request = self.context.get('request')
+        if request.user.role != 'admin' or not request.user.is_superuser:
+            raise ValidationError("Only admin users can change the role of an user.")
+
+        if value not in ['visitor', 'validator', 'admin']:
+            raise ValidationError("Invalid role. Must be either 'visitor', 'validator' or 'admin'.")
+        return value
+
+    def update(self, instance, validated_data):
+        print(validated_data)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.role = validated_data.get('role', instance.role)
+
+        instance.save()
+
+        return instance

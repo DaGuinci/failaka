@@ -28,7 +28,7 @@ class TestSetupAPITestCase(APITestCase):
         cls.zeus = UserModel.objects.create_superuser('Zeus_superuser', 'admin@olympe.gr', 'pass')
 
         # Admin
-        cls.hera = User.objects.create(
+        cls.hera = User.objects.create_user(
             username='hera_admin',
             email='hera@olympe.gr',
             password='pass',
@@ -36,26 +36,24 @@ class TestSetupAPITestCase(APITestCase):
         )
 
         # validator
-        cls.athena = User.objects.create(
+        cls.athena = User.objects.create_user(
             username='athena_validator',
             email='athena@olympe.gr',
             password='pass',
             role='validator'
         )
 
-        # User
-        cls.hades = User.objects.create(
+        # Users
+        cls.hades = User.objects.create_user(
             username='hades_user',
             email='hades@olympe.gr',
             password='pass',
-            role='user'
         )
 
-        cls.ares = User.objects.create(
+        cls.ares = User.objects.create_user(
             username='ares_user',
             email='ares@olympe.gr',
             password='pass',
-            role='user'
         )
 
     @classmethod
