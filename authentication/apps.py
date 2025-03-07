@@ -2,14 +2,16 @@ import os
 from django.apps import AppConfig
 from django.core.management import call_command
 
+
 class AuthenticationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'authentication'
 
-    # Réinitialise et recharge les données
+    # Drop and recreate the database:
     def ready(self):
-        print('DJANGO_ENV:', os.environ.get('DJANGO_ENV'))
         if os.environ.get('DJANGO_ENV') == 'development':
+            from django.contrib.auth.models import User
             call_command('flush', '--no-input')
             call_command('migrate')
-            call_command('loaddata', 'authentication/data_init.json')
+            call_command('create_users')
+            # call_command('createsuperuser', '--noinput')
