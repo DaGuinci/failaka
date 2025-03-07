@@ -39,14 +39,14 @@ class UserViewset(ModelViewSet):
     # dont use put method
     http_method_names = ['get', 'post', 'patch', 'delete']
 
-    @action(
-            detail=False,
-            methods=['post'],
-            serializer_class=RegisterSerializer,
-            url_path='register',
-            permission_classes=[AllowAny]
-        )
-    def register(self, request):
+    # @action(
+    #         detail=False,
+    #         methods=['post'],
+    #         serializer_class=RegisterSerializer,
+    #         url_path='register',
+    #         permission_classes=[AllowAny]
+    #     )
+    def create(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()

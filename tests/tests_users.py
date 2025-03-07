@@ -20,6 +20,12 @@ class UsersAPITestCase(TestSetupAPITestCase):
         if test == 'permission_denied':
             return {'detail': "You do not have permission to perform this action."}
 
+        if test == 'change_role_denied':
+            return {'detail': "You do not have permission to change the role."}
+
+        if test == 'unauthorized_role':
+            return {'detail': "You only have permission to create a visitor."}
+
         return None
 
 
@@ -58,7 +64,7 @@ class UserTestCases(UsersAPITestCase):
 
     # User creation
     def test_any_can_register(self):
-        url = reverse_lazy('user-register')
+        url = reverse_lazy('user-list')
         response = self.client.post(url, {
             'username': 'artemis',
             'email': 'artemis@olympe.gr',
@@ -70,19 +76,19 @@ class UserTestCases(UsersAPITestCase):
         
     # user creation with existing email
     def test_email_exists(self):
-        url = reverse_lazy('user-register')
+        url = reverse_lazy('user-list')
         response = self.client.post(url, {
             'username': 'hera',
             'email': 'hera@olympe.gr',
             'password': 'password'
             }, format='json')
-        self.assertEqual(response.status_code, 400)  # 400 Bad Request
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(),
                         self.expected_reponses_content('email_exists'))
 
     # user creation with invalid email
     def test_invalid_email(self):
-        url = reverse_lazy('user-register')
+        url = reverse_lazy('user-list')
         response = self.client.post(url, {
             'username': 'hera',
             'email': 'hera',
@@ -91,6 +97,19 @@ class UserTestCases(UsersAPITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(),
                         self.expected_reponses_content('invalid_email'))
+
+    # user creation with unauthorized role
+    def test_unauthorized_role(self):
+        url = reverse_lazy('user-list')
+        response = self.client.post(url, {
+            'username': 'poseidon',
+            'email': 'poseidon@olympe.gr',
+            'password': 'password',
+            'role': 'admin'
+            }, format='json')
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(), 
+                        self.expected_reponses_content('unauthorized_role'))
 
     # user retrieval
     def test_non_auth_cant_get_user(self):
@@ -212,10 +231,9 @@ class UserTestCases(UsersAPITestCase):
         response = self.client.patch(url, {
             'role': 'admin'
             }, format='json')
-        print(response.json())
         self.assertEqual(response.status_code, 403)
         self.assertEqual(response.json(),
-                        {'detail': 'You do not have permission to perform this action.'})
+                        self.expected_reponses_content('change_role_denied'))
 
 
     # user deletion

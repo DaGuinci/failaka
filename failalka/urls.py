@@ -30,7 +30,7 @@ from authentication.views import UserViewset
 
 # Initialize routers
 userRouter = routers.SimpleRouter()
-apiRouter = routers.SimpleRouter()
+# apiRouter = routers.SimpleRouter()
 
 # User viewsets with routers
 userRouter.register('users', UserViewset, basename='user')
@@ -40,7 +40,7 @@ urlpatterns = [
     path('/', include(userRouter.urls)),
     path('auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/', include(apiRouter.urls)),
+    # path('api/', include(apiRouter.urls)),
     path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
     path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
