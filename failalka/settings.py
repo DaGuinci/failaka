@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework_swagger',
     'authentication',
+    'entities',
 ]
 
 MIDDLEWARE = [

@@ -14,4 +14,3 @@ class AuthenticationConfig(AppConfig):
             call_command('flush', '--no-input')
             call_command('migrate')
             call_command('create_users')
-            # call_command('createsuperuser', '--noinput')
