@@ -8,7 +8,6 @@ from entities.models.resource_model import Resource
 
 class Site(Resource):
         # type: String (enum?)
-        # subsites: Subsite
         # keywords: Dict
         # chrono: Tuple(Datetime)
         # location: Tuple(Float)
@@ -21,7 +20,6 @@ class Site(Resource):
         # justification: String
 
     type = models.CharField(max_length=150, blank=False, null=False)
-    # subsites = models.ForeignKey('Subsite', on_delete=models.CASCADE, blank=True, null=True)
     keywords = models.JSONField(blank=True, null=True)
     chrono = models.JSONField(blank=True, null=True)
     location = models.JSONField(blank=True, null=True)

@@ -26,14 +26,27 @@
         }
     },
     {
+        "model": "authentication.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$examplehash",
+            "last_login": null,
+            "is_superuser": false,
+            "email": "user@failalka.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z"
+        }
+    },
+    {
         "model": "entities.site",
         "pk": 1,
         "fields": {
-            "author": 1,
-            "name": "Site 1",
+            "author": 2,
+            "name": "Temple d'Abou Simbel",
             "type": "Type 1",
-            "description": "Description 1",
-            "keywords": ["Keyword 1", "Keyword 2"],
+            "description": "Un temple en Egypte",
+            "keywords": ["Egypte", "Osiris", "Temple"],
             "chrono": ["2021-01-01", "2021-12-31"],
             "location": [0.0, 0.0],
             "location_name": "Location 1",
@@ -41,6 +54,69 @@
             "geo_description": "Geo Description 1",
             "historio": "Historio 1",
             "justification": "Justification 1"
+        }
+    },
+    {
+        "model": "entities.site",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "name": "Temple d'Angkor Wat",
+            "type": "Type 1",
+            "description": "Un temple au Cambodge",
+            "keywords": ["Cambodge", "Bouddhisme", "Temple"],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "location": [0.0, 0.0],
+            "location_name": "Location 1",
+            "geology": "Geology 1",
+            "geo_description": "Geo Description 1",
+            "historio": "Historio 1",
+            "justification": "Justification 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Entrée d'Abou Simbel",
+            "site": 1,
+            "location": [0.0, 0.0],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "justification": "Justification 1",
+            "settle_type": "Settle Type 1",
+            "material": "Material 1",
+            "remains": "Remains 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "name": "Cour intérieure",
+            "site": 1,
+            "location": [0.0, 0.0],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "justification": "Justification 1",
+            "settle_type": "Settle Type 1",
+            "material": "Material 1",
+            "remains": "Remains 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 3,
+        "fields": {
+            "author": 1,
+            "name": "Salle de prière",
+            "site": 2,
+            "location": [0.0, 0.0],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "justification": "Justification 1",
+            "settle_type": "Settle Type 1",
+            "material": "Material 1",
+            "remains": "Remains 1"
         }
     }
 ]
