@@ -2,22 +2,27 @@
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+import sphinx_rtd_theme  # noqa
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Failalka'
-copyright = '2025, evendev.net'
+copyright = '2025, gevendev.net'
 author = 'Guillaume Even'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'sphinx.ext.autosectionlabel',
+    'sphinxcontrib.plantuml',
+]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+master_doc = 'index'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -25,3 +30,8 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_css_files = [
+    'css/erd.css',
+]
+
+html_show_sourcelink = False
