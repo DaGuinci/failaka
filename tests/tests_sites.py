@@ -70,7 +70,6 @@ class SitesAPITestCase(TestSetupAPITestCase):
         token = self.get_token('admin')
         url = reverse_lazy('site-list')
         response = self.client.post(url, self.site_data, format='json', HTTP_AUTHORIZATION=f'Bearer {token}')
-        print(response.json())
         self.assertEqual(response.status_code, 201)
 
     def untest_update_site(self):

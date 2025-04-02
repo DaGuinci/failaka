@@ -20,7 +20,6 @@ class SiteSerializer(serializers.ModelSerializer):
     #     return author
 
     def create(self, validated_data):
-        print(validated_data)
         return Site.objects.create(**validated_data)
 
     def __str__(self):
