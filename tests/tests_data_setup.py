@@ -6,7 +6,10 @@ from authentication.models import User
 
 from django.contrib.auth import get_user_model
 
-from entities.models import Site
+from entities.models import (
+    Site,
+    Subsite
+    )
 
 
 # Mise en place des datas pour test
@@ -64,6 +67,20 @@ class TestSetupAPITestCase(APITestCase):
             geo_description='Geo Description 1',
             historio='Historio 1',
             justification='Justification 1'
+        )
+
+        # Subsites
+        cls.subsite_1 = Subsite.objects.create(
+            author=cls.hera,
+            site=cls.site_1,
+            name='Subsite 1',
+            description='Description 1',
+            chrono=['2021-01-01', '2021-12-31'],
+            location=[0.0, 0.0],
+            justification='Justification 1',
+            settle_type='Settle Type 1',
+            material='Material 1',
+            remains='Remains 1'
         )
 
     @classmethod
