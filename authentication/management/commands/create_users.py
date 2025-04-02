@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from authentication.models import User
 
+# Unused function: commented in apps.py
 class Command(BaseCommand):
     help = 'Create initial users with encrypted passwords'
 

@@ -4,12 +4,10 @@ from django.db import models
 
 from authentication.models import User
 
-class Site(models.Model):
-        # UUID: UUID
-        # author: User
-        # name: String
+from entities.models.resource_model import Resource
+
+class Site(Resource):
         # type: String (enum?)
-        # description: String
         # subsites: Subsite
         # keywords: Dict
         # chrono: Tuple(Datetime)
@@ -22,11 +20,7 @@ class Site(models.Model):
         # missions: Mission
         # justification: String
 
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    author = models.ForeignKey('authentication.User', on_delete=models.CASCADE, blank=False, null=False)
-    name = models.CharField(max_length=150, blank=False, null=False)
     type = models.CharField(max_length=150, blank=False, null=False)
-    description = models.TextField(blank=True, null=True)
     # subsites = models.ForeignKey('Subsite', on_delete=models.CASCADE, blank=True, null=True)
     keywords = models.JSONField(blank=True, null=True)
     chrono = models.JSONField(blank=True, null=True)

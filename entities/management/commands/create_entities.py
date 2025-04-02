@@ -3,6 +3,7 @@ from entities.models import Site
 from entities.serializers import SiteSerializer
 from authentication.models import User
 
+# Unused function: commented in apps.py
 class Command(BaseCommand):
     help = 'Create initial entities'
 

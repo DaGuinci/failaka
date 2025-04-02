@@ -8,11 +8,9 @@ class SitesAPITestCase(TestSetupAPITestCase):
     def setUp(self):
         super().setUp()
         self.site_data = {
-            'uuid': '1',
-            'author': '',
             'name': 'Site 1',
-            'type': 'Type 1',
             'description': 'Description 1',
+            'type': 'Type 1',
             'keywords': ['Keyword 1', 'Keyword 2'],
             'chrono': ['2021-01-01', '2021-12-31'],
             'location': [0.0, 0.0],
@@ -23,7 +21,23 @@ class SitesAPITestCase(TestSetupAPITestCase):
             'justification': 'Justification 1'
         }
 
-    def get_token(role):
+    def get_token(self, role):
+        if role == 'admin':
+            url = reverse_lazy('auth_token')
+            response = self.client.post(url, {
+                'email': 'hera@olympe.gr',
+                'password': 'pass'
+            }, format='json')
+            return response.json()['access']
+        elif role == 'validator':
+            url = reverse_lazy('auth_token')
+            response = self.client.post(url, {
+                'email': 'athena@olympe.gr',
+                'password': 'pass'
+            }, format='json')
+            return response.json()['access']
+        else:
+            return None
     
     def test_not_connected_cant_create_site(self):
         response = self.client.post(reverse_lazy('site-list'), self.site_data, format='json')
@@ -52,6 +66,13 @@ class SitesAPITestCase(TestSetupAPITestCase):
         response = self.client.delete(reverse_lazy('site-detail', args=[target_site['uuid']]))
         self.assertEqual(response.status_code, 401)
     
+    def test_admin_can_create_site(self):
+        token = self.get_token('admin')
+        url = reverse_lazy('site-list')
+        response = self.client.post(url, self.site_data, format='json', HTTP_AUTHORIZATION=f'Bearer {token}')
+        print(response.json())
+        self.assertEqual(response.status_code, 201)
+
     def untest_update_site(self):
         response = self.client.put(reverse_lazy('site-detail', args=[self.site_data['uuid']]), self.site_data_update, format='json')
         self.assertEqual(response.status_code, 200)

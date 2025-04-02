@@ -9,5 +9,6 @@ class EntitiesConfig(AppConfig):
     # create instances of the models:
     def ready(self):
         if os.environ.get('DJANGO_ENV') == 'development':
-            from entities.models import Site
-            call_command('create_entities')
+            # from entities.models import Site
+            # call_command('create_entities')
+            pass
