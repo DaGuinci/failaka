@@ -34,15 +34,15 @@ userRouter = routers.SimpleRouter()
 entitiesRouter = routers.SimpleRouter()
 
 # viewsets with routers
-userRouter.register('users', UserViewset, basename='user')
+userRouter.register('', UserViewset, basename='user')
 entitiesRouter.register('sites', SiteViewset, basename='site')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', include(userRouter.urls)),
+    path('users/', include(userRouter.urls)),
     path('auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('/', include(entitiesRouter.urls)),
+    path('entities/', include(entitiesRouter.urls)),
     path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
     path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
