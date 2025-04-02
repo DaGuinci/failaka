@@ -1,6 +1,11 @@
 # failalka
 Sauvegarde et valorisation des archives de la mission Failalka
 
+https://failalka.readthedocs.io/en/latest/
+
+## Useful commands
+
+
 To launch the server:
 ```bash
     python manage.py runserver
