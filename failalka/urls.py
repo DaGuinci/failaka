@@ -26,7 +26,10 @@ from rest_framework_simplejwt.views import (
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from authentication.views import UserViewset
-from entities.views import SiteViewset
+from entities.views import (
+    SiteViewset,
+    SubsiteViewset
+)
 
 
 # Initialize routers
@@ -36,6 +39,7 @@ entitiesRouter = routers.SimpleRouter()
 # viewsets with routers
 userRouter.register('', UserViewset, basename='user')
 entitiesRouter.register('sites', SiteViewset, basename='site')
+entitiesRouter.register('subsites', SubsiteViewset, basename='subsite')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
