@@ -1,5 +1,5 @@
 """
-URL configuration for failalka project.
+URL configuration for failalkaApi project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -15,8 +15,39 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView
+)
+
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
+from authentication.views import UserViewset
+from entities.views import (
+    SiteViewset,
+    SubsiteViewset
+)
+
+
+# Initialize routers
+userRouter = routers.SimpleRouter()
+entitiesRouter = routers.SimpleRouter()
+
+# viewsets with routers
+userRouter.register('', UserViewset, basename='user')
+entitiesRouter.register('sites', SiteViewset, basename='site')
+entitiesRouter.register('subsites', SubsiteViewset, basename='subsite')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/', include(userRouter.urls)),
+    path('auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('entities/', include(entitiesRouter.urls)),
+    path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
+    path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]

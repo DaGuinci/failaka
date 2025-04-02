@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import datetime
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+# Charge les variables d'environnement depuis le fichier .env
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(utj=_uqhn#_2r-z6byq3e()ycbn*=b@&@yuc(w(%&f=z1=0km'
+SECRET_KEY = os.getenv('SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+if os.getenv('DJANGO_ENV') == 'development':
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+if DEBUG is True:
+    ALLOWED_HOSTS = []
+elif DEBUG is False:
+    ALLOWED_HOSTS = ["*"]
+
+# Récupère la variable DJANGO_ENV avec 'production' comme valeur par défaut
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'production')
 
 
 # Application definition
@@ -37,6 +51,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'drf_spectacular',
+    'rest_framework_swagger',
+    'authentication',
+    'entities',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +129,44 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+AUTH_USER_MODEL = 'authentication.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DATETIME_FORMAT': "%Y-%m-%d",
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Failalka API',
+    'VERSION': '0.1.0',
+    'SERVE_URL': '/api/schema',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'DESCRIPTION': 'Valorize archelogical finds',
+    'SCHEMA_PATH_PREFIX': '/api',
+    # 'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "persistAuthorization": True,
+        "displayOperationId": True,
+    },
+    # Activé pour montrer sur Swagger que les champs
+    # des requêtes PATCH sont tous optionnel
+    'COMPONENT_SPLIT_PATCH': True,
+    'COMPONENT_SPLIT_REQUEST': True,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
 
 
 # Static files (CSS, JavaScript, Images)
