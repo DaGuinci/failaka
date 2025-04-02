@@ -10,8 +10,8 @@ class AuthenticationConfig(AppConfig):
     # Drop and recreate the database:
     def ready(self):
         if os.environ.get('DJANGO_ENV') == 'development':
-            from django.contrib.auth.models import User
-            call_command('flush', '--no-input')
-            call_command('migrate')
-            call_command('create_users')
-            # call_command('createsuperuser', '--noinput')
+            # from django.contrib.auth.models import User
+            # call_command('flush', '--no-input')
+            # call_command('migrate')
+            # call_command('create_users')
+            pass

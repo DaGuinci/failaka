@@ -21,26 +21,32 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView
-    )
+)
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from authentication.views import UserViewset
+from entities.views import (
+    SiteViewset,
+    SubsiteViewset
+)
 
 
 # Initialize routers
 userRouter = routers.SimpleRouter()
-# apiRouter = routers.SimpleRouter()
+entitiesRouter = routers.SimpleRouter()
 
-# User viewsets with routers
-userRouter.register('users', UserViewset, basename='user')
+# viewsets with routers
+userRouter.register('', UserViewset, basename='user')
+entitiesRouter.register('sites', SiteViewset, basename='site')
+entitiesRouter.register('subsites', SubsiteViewset, basename='subsite')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', include(userRouter.urls)),
+    path('users/', include(userRouter.urls)),
     path('auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('api/', include(apiRouter.urls)),
+    path('entities/', include(entitiesRouter.urls)),
     path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
     path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),

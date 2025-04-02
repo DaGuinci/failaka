@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework_swagger',
     'authentication',
+    'entities',
 ]
 
 MIDDLEWARE = [
@@ -147,7 +148,7 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '0.1.0',
     'SERVE_URL': '/api/schema',
     'SERVE_INCLUDE_SCHEMA': False,
-    'DESCRIPTION': 'Track projects and issues',
+    'DESCRIPTION': 'Valorize archelogical finds',
     'SCHEMA_PATH_PREFIX': '/api',
     # 'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
