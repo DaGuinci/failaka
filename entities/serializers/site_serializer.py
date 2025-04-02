@@ -1,41 +1,24 @@
-from rest_framework.serializers import (
-    ModelSerializer,
-    )
+from rest_framework import serializers
 
 from entities.models import Site
-# import user
 from authentication.models import User
 
-class SiteSerializer(ModelSerializer):
+class SiteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Site
-        fields = [
-            'uuid',
-            'author',
-            'name',
-            'type',
-            'description',
-            'keywords',
-            'chrono',
-            'location',
-            'location_name',
-            'geology',
-            'geo_description',
-            'historio',
-            'justification'
-        ]
+        fields = '__all__'
 
     def validate_author(self, value):
         if value == '':
             raise serializers.ValidationError("Author cannot be empty")
-        author= User.objects.get(email=value)
+        try:
+            author = User.objects.get(email=value)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("No user found with this email")
         return author
 
     def create(self, validated_data):
-        # get author user
-        author = User.objects.get(email=validated_data['author'])
-        validated_data['author'] = author
         return Site.objects.create(**validated_data)
 
     def __str__(self):

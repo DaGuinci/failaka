@@ -22,20 +22,36 @@ class SitesAPITestCase(TestSetupAPITestCase):
             'historio': 'Historio 1',
             'justification': 'Justification 1'
         }
-    
-    def test_create_site(self):
-        response = self.client.post(reverse_lazy('site-list'), self.site_data, format='json')
-        self.assertEqual(response.status_code, 201)
 
-    def test_list_sites(self):
+    def get_token(role):
+    
+    def test_not_connected_cant_create_site(self):
+        response = self.client.post(reverse_lazy('site-list'), self.site_data, format='json')
+        self.assertEqual(response.status_code, 401)
+
+    def test_not_connected_can_list_sites(self):
         response = self.client.get(reverse_lazy('site-list'))
         self.assertEqual(response.status_code, 200)
-        # self.assertEqual(len(response.data), 4)
 
-    def untest_retrieve_site(self):
-        response = self.client.get(reverse_lazy('site-detail', args=[self.site_data['uuid']]))
+    def test_not_connected_can_retrieve_site(self):
+        sites = self.client.get(reverse_lazy('site-list')).data
+        target_site = sites['results'][0]
+        response = self.client.get(reverse_lazy('site-detail', args=[target_site['uuid']]))
         self.assertEqual(response.status_code, 200)
 
+    def test_not_connected_cant_update_site(self):
+        sites = self.client.get(reverse_lazy('site-list')).data
+        target_site = sites['results'][0]
+        self.site_data_update = self.site_data.copy()
+        response = self.client.patch(reverse_lazy('site-detail', args=[target_site['uuid']]), self.site_data, format='json')
+        self.assertEqual(response.status_code, 401)
+
+    def test_not_connected_cant_delete_site(self):
+        sites = self.client.get(reverse_lazy('site-list')).data
+        target_site = sites['results'][0]
+        response = self.client.delete(reverse_lazy('site-detail', args=[target_site['uuid']]))
+        self.assertEqual(response.status_code, 401)
+    
     def untest_update_site(self):
         response = self.client.put(reverse_lazy('site-detail', args=[self.site_data['uuid']]), self.site_data_update, format='json')
         self.assertEqual(response.status_code, 200)
