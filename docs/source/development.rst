@@ -73,17 +73,20 @@ Have a database installed on your machine (PostgreSQL, MySQL, SQLite, etc.)
 To launch the server:
 
 .. code-block:: bash
+
     python manage.py runserver
 
 
 To launch tests suite:
 
 .. code-block:: bash
+
     python manage.py test
 
 
 To reboot the database (DELETE ALL DATAS):
 
 .. code-block:: bash
+    
     python manage.py flush
     python manage.py loaddata initial_data.json
