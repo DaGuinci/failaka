@@ -67,3 +67,23 @@ Have a database installed on your machine (PostgreSQL, MySQL, SQLite, etc.)
 
 ``http://localhost:8000``
 
+9. Useful commands
+
+
+To launch the server:
+
+.. code-block:: bash
+    python manage.py runserver
+
+
+To launch tests suite:
+
+.. code-block:: bash
+    python manage.py test
+
+
+To reboot the database (DELETE ALL DATAS):
+
+.. code-block:: bash
+    python manage.py flush
+    python manage.py loaddata initial_data.json

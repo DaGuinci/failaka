@@ -10,5 +10,5 @@ Welcome on the website Failalka's documentation
    :maxdepth: 2
    :caption: Contents:
 
-   source/Development
-   source/Usage
+   source/development
+   source/usage
