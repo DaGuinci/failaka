@@ -7,9 +7,9 @@ import sphinx_rtd_theme  # noqa
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Orange County Letting'
-copyright = '2024, Daguinci'
-author = 'Daguinci'
+project = 'Failalka'
+copyright = '2025, gevendev.net'
+author = 'Guillaume Even'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

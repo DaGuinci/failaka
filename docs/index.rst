@@ -3,13 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Bienvenue sur la documentation du site Orange County Letting!
-=============================================================
+Welcome on the website Failalka;s documentation
+=================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   source/install
-   source/specs
-   source/changes
+   source/Development
+   source/Usage
