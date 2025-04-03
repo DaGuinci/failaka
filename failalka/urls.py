@@ -28,7 +28,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from authentication.views import UserViewset
 from entities.views import (
     SiteViewset,
-    SubsiteViewset
+    SubsiteViewset,
+    ItemViewset
 )
 
 
@@ -40,6 +41,7 @@ entitiesRouter = routers.SimpleRouter()
 userRouter.register('', UserViewset, basename='user')
 entitiesRouter.register('sites', SiteViewset, basename='site')
 entitiesRouter.register('subsites', SubsiteViewset, basename='subsite')
+entitiesRouter.register('items', ItemViewset, basename='item')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

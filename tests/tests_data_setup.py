@@ -8,7 +8,8 @@ from django.contrib.auth import get_user_model
 
 from entities.models import (
     Site,
-    Subsite
+    Subsite,
+    Item,
     )
 
 
@@ -81,6 +82,36 @@ class TestSetupAPITestCase(APITestCase):
             settle_type='Settle Type 1',
             material='Material 1',
             remains='Remains 1'
+        )
+
+        # Items
+        cls.item_1 = Item.objects.create(
+            author=cls.hera,
+            type='Type 1',
+            identification='Identification 1',
+            site=cls.site_1,
+            subsite=cls.subsite_1,
+            item_date=['2021-01-01', '2021-12-31'],
+            family='Family 1',
+            scient_name='Scient Name 1',
+            material='Material 1',
+            current_location='Current Location 1',
+            references='References 1',
+            citation='Citation 1'
+        )
+        cls.item_2 = Item.objects.create(
+            author=cls.hera,
+            type='Type 2',
+            identification='Identification 2',
+            site=cls.site_1,
+            subsite=cls.subsite_1,
+            item_date=['2021-01-01', '2021-12-31'],
+            family='Family 2',
+            scient_name='Scient Name 2',
+            material='Material 2',
+            current_location='Current Location 2',
+            references='References 2',
+            citation='Citation 2'
         )
 
     @classmethod
