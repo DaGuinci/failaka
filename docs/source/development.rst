@@ -9,6 +9,224 @@ Backup and Enhancement of the Failalka Mission items.
 
 Inspired by [this website](https://desertnetworks.huma-num.fr/)
 
+User stories
+------------
+
+* As a user, I want to see a list of items, so I can navigate randomly;
+* As a user, I want to get more information about a resource, so I can go further in my investigation;
+* As a user, I can get list of resources with filters such as type, subsite or date;
+* As a user, I can submit a comment referring to an item;
+* As a user, I can order a list of item in better resolution;
+* As a validator, I can add a resource;
+* As a validator, I can modify one of my resources;
+* As a validator, I can modify any resource;
+* As a validator, I receive comment submissions and can accept or reject them;
+* As an administrator, I can add, modify or delete any resource.
+
+* un lecteur peut soumettre un comment
+* les validateurs en sont informés
+* les validateur valident la publi du comm
+* Un lecteur peut stocker une selection d'articles pour faire une demande de dl en meilleur resolution
+
+
+Class diagram
+----------------
+The class diagram below shows the main classes and their relationships in the project.
+It is a simplified representation of the project's structure and is intended to provide a high-level overview of the system.
+
+.. note:: The class diagram is generated using PlantUML and is included in the documentation for reference.
+.. image:: ../_static/class_diag.png
+   :alt: Class diagram
+   :align: center
+
+Class tables
+----------------
+
+.. list-table:: Class Overview
+   :header-rows: 1
+
+   * - Class Name
+     - Attributes
+   * - User
+     - | UUID: UUID
+       | firstname: String
+       | lastname: String
+       | role: Enum (VALID, ADMIN)
+       | email: String
+       | password: String
+   * - resource
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+   * - item (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | type: Enum
+       | identification: String
+       | site: Site
+       | subsite: Site.subsite
+       | thumbnail: Thumbnail
+       | item_date: Tuple(Datetime)
+       | family: String
+       | scient_name: String
+       | material: String (Enum?)
+       | current_location: String
+       | references: String
+       | citation: String
+       | method1(): ReturnType
+   * - Site (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | type: String (enum?)
+       | keywords: Dict
+       | chrono: Tuple(Datetime)
+       | location: Tuple(Float)
+       | altitude: Float
+       | location_name: String
+       | geology: String
+       | geo_description: String
+       | historio: String
+       | missions: Mission
+       | justification: String
+       | method1(): ReturnType
+   * - Subsite (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | site: Site
+       | location: Tuple(Float)
+       | chrono: Tuple(Datetime)
+       | justification: String
+       | settle_type: String (Enum?)
+       | material: String(Enum)
+       | remains: String
+   * - Thumbnail (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | path: String
+       | method1(): ReturnType
+   * - Mission (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | notables: MissionMember
+       | mission_members: String
+       | type: String
+       | period: String
+       | biblio: String
+       | citation: String
+       | method1(): ReturnType
+   * - Notable (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | first_name: String
+       | last_name: String
+   * - Comment (extends resource)
+     - | UUID: UUID
+       | author: User
+       | name: String
+       | description: String
+       | item: Item
+       | status: Enum (TOVALID, PUBLISHED, TRASH)
+
+
+Permissions
+----------------
+
+.. list-table:: Permissions Overview
+   :header-rows: 1
+
+   * - Resource
+     - Role
+     - Create
+     - Read
+     - Update any
+     - Update own
+     - Delete any
+     - Delete own
+   * - User
+     - | User
+       | validator
+       | admin
+     - | ✔
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+     - | 
+       | 
+       | ✔
+     - | ✔
+       | ✔
+       | ✔
+     - | 
+       | 
+       | ✔
+     - | ✔
+       | ✔
+       | ✔
+   * - | Resource
+       | (Item, Site,
+       | subsite,
+       | thumbnail,
+       | mission,
+       | notable)
+     - | User
+       | validator
+       | admin
+     - | 
+       | ✔
+       | ✔
+     - | ✔
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+   * - Comment
+     - | User
+       | validator
+       | admin
+     - | ✔
+       | ✔
+       | ✔
+     - | ✔
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+     - | ✔
+       | ✔
+       | ✔
+     - | 
+       | ✔
+       | ✔
+     - | ✔
+       | ✔
+       | ✔
+
 Local installation
 ------------------
 
