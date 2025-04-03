@@ -3,12 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome on the website Failalka's documentation
+Welcome on the Failalka's website documentation
 =================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   source/use
    source/development
-   source/usage
