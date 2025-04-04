@@ -9,6 +9,8 @@ class Resource(models.Model):
         # author: User
         # name: String
         # description: String
+        # thumbnail: image
+
     class Meta:
         abstract = True
 
@@ -16,4 +18,5 @@ class Resource(models.Model):
     author = models.ForeignKey('authentication.User', on_delete=models.CASCADE, blank=False, null=False)
     name = models.CharField(max_length=150, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='resources/', blank=True, null=True)
     
