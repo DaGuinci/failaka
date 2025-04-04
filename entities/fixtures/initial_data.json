@@ -118,5 +118,25 @@
             "material": "Material 1",
             "remains": "Remains 1"
         }
+    },
+    {
+        "model": "entities.item",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Statue de Ramsès II",
+            "site": 1,
+            "subsite": 1,
+            "description": "Statue de Ramsès II",
+            "type": "Statue",
+            "identification": "Statue 1",
+            "item_date": "2021-01-01",
+            "family": "Statue Family",
+            "scient_name": "Statue Scientific Name",
+            "material": "Stone",
+            "current_location": "Location 1",
+            "references": ["Reference 1", "Reference 2"],
+            "citation": "Citation 1"
+        }
     }
 ]
