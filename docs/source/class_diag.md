@@ -49,7 +49,7 @@ class Site extends resource {
   - geology: String
   - geo_description: String
   - historio: String
-  - missions: Mission
+  - missions: Mission-manyToMany
   - justification: String
 }
 
@@ -95,7 +95,7 @@ class Comment extends resource {
 item::author "*" -r- "1" User::UUID
 item::site "*" -l- "1" Site::UUID
 Site::subsites "1" -- "*" Subsite::UUID
-Site::missions "1" -l- "*" Mission::UUID
+Site::missions "*" -l- "*" Mission::UUID
 Mission::notables "*" -l- "*" Notable
 @enduml
 ```
