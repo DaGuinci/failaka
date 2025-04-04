@@ -10,6 +10,7 @@ from entities.models import (
     Site,
     Subsite,
     Item,
+    Mission,
     )
 
 
@@ -112,6 +113,23 @@ class TestSetupAPITestCase(APITestCase):
             current_location='Current Location 2',
             references='References 2',
             citation='Citation 2'
+        )
+        # Missions
+        # - notables: Notables-manyToMany
+        # - mission_members: String
+        # - type: String
+        # - period: String
+        # - biblio: String
+        # - citation: String
+        cls.mission_1 = Mission.objects.create(
+            author=cls.hera,
+            name='Mission 1',
+            description='Description 1',
+            type='Type 1',
+            mission_members='Members 1',
+            period=['2021-01-01', '2021-12-31'],
+            biblio='Biblio 1',
+            citation='Citation 1'
         )
 
     @classmethod

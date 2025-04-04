@@ -278,8 +278,8 @@ Have a database installed on your machine (PostgreSQL, MySQL, SQLite, etc.)
 
 ``http://localhost:8000``
 
-9. Useful commands
-
+Useful commands
+----------------
 
 To launch the server:
 

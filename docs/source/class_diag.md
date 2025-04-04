@@ -64,13 +64,12 @@ class Subsite extends resource {
 }
 
 class Mission extends resource {
-  - notables: MissionMember
+  - notables: Notables-manyToMany
   - mission_members: String
   - type: String
   - period: String
   - biblio: String
   - citation: String
-  + method1(): ReturnType
 }
 
 class Notable extends resource {

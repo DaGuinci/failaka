@@ -138,5 +138,18 @@
             "references": ["Reference 1", "Reference 2"],
             "citation": "Citation 1"
         }
+    },
+    {
+        "model": "entities.mission",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Mission d'Abou Simbel",
+            "mission_members": "John Doe, Jane Smith",
+            "type": "Type 1",
+            "period": "2021-01-01 to 2021-12-31",
+            "biblio": "Bibliography 1",
+            "citation": "Citation 1"
+        }      
     }
 ]
