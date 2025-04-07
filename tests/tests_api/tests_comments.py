@@ -50,21 +50,21 @@ class CommentAPITestCase(TestSetupAPITestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_not_connected_can_retrieve_comment(self):
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         response = self.client.get(reverse_lazy('comment-detail', args=[target_Comment['uuid']]))
         self.assertEqual(response.status_code, 200)
 
     def test_not_connected_cant_update_comment(self):
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         self.comment_data_update = self.comment_data.copy()
         response = self.client.patch(reverse_lazy('comment-detail', args=[target_Comment['uuid']]), self.comment_data, format='json')
         self.assertEqual(response.status_code, 401)
 
     def test_not_connected_cant_delete_comment(self):
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         response = self.client.delete(reverse_lazy('comment-detail', args=[target_Comment['uuid']]))
         self.assertEqual(response.status_code, 401)
     
@@ -83,23 +83,23 @@ class CommentAPITestCase(TestSetupAPITestCase):
 
     def test_user_can_retrieve_comment(self):
         token = self.get_token('user')
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         response = self.client.get(reverse_lazy('comment-detail', args=[target_Comment['uuid']]), HTTP_AUTHORIZATION=f'Bearer {token}')
         self.assertEqual(response.status_code, 200)
     
     def test_user_cant_update_comment(self):
         token = self.get_token('user')
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         url = reverse_lazy('comment-detail', args=[target_Comment['uuid']])
         response = self.client.patch(url, self.comment_data, format='json', HTTP_AUTHORIZATION=f'Bearer {token}')
         self.assertEqual(response.status_code, 403)
 
     def test_user_cant_delete_comment(self):
         token = self.get_token('user')
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         url = reverse_lazy('comment-detail', args=[target_Comment['uuid']])
         response = self.client.delete(url, HTTP_AUTHORIZATION=f'Bearer {token}')
         self.assertEqual(response.status_code, 403)
@@ -123,8 +123,8 @@ class CommentAPITestCase(TestSetupAPITestCase):
 
     def untest_validator_cant_update_other_comment(self):
         token = self.get_token('validator')
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         url = reverse_lazy('comment-detail', args=[target_Comment['uuid']])
         response = self.client.patch(url, {'name': 'other name'}, format='json', HTTP_AUTHORIZATION=f'Bearer {token}')
         self.assertEqual(response.status_code, 403)
@@ -140,8 +140,8 @@ class CommentAPITestCase(TestSetupAPITestCase):
 
     def test_validator_cant_delete_comment(self):
         token = self.get_token('validator')
-        Comment = self.client.get(reverse_lazy('comment-list')).data
-        target_Comment = Comment['results'][0]
+        Comments = self.client.get(reverse_lazy('comment-list')).data
+        target_Comment = Comments['results'][0]
         url = reverse_lazy('comment-detail', args=[target_Comment['uuid']])
         response = self.client.delete(url, HTTP_AUTHORIZATION=f'Bearer {token}')
         self.assertEqual(response.status_code, 403)
