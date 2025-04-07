@@ -163,5 +163,16 @@
             "first_name": "Lara",
             "last_name": "Croft"
         }
+    },
+    {
+        "model": "entities.comment",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Comment 1",
+            "description": "This is a comment.",
+            "status": "pemding",
+            "item": 1
+        }
     }
 ]
