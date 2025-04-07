@@ -299,5 +299,4 @@ To reboot the database (DELETE ALL DATAS):
 
 .. code-block:: bash
     
-    python manage.py flush
-    python manage.py loaddata initial_data.json
+    python manage.py initdata

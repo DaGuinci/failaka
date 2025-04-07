@@ -3,7 +3,7 @@
         "model": "authentication.user",
         "pk": 1,
         "fields": {
-            "password": "pbkdf2_sha256$260000$examplehash",
+            "password": "adminpassword",
             "last_login": null,
             "is_superuser": true,
             "email": "admin@failalka.com",
@@ -16,7 +16,7 @@
         "model": "authentication.user",
         "pk": 2,
         "fields": {
-            "password": "pbkdf2_sha256$260000$examplehash",
+            "password": "validatorpassword",
             "last_login": null,
             "is_superuser": false,
             "email": "validator@failalka.com",
@@ -29,7 +29,7 @@
         "model": "authentication.user",
         "pk": 3,
         "fields": {
-            "password": "pbkdf2_sha256$260000$examplehash",
+            "password": "userpassword",
             "last_login": null,
             "is_superuser": false,
             "email": "user@failalka.com",
