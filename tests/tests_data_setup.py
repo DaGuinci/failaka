@@ -11,6 +11,7 @@ from entities.models import (
     Subsite,
     Item,
     Mission,
+    Notable,
     )
 
 
@@ -114,6 +115,7 @@ class TestSetupAPITestCase(APITestCase):
             references='References 2',
             citation='Citation 2'
         )
+
         # Missions
         # - notables: Notables-manyToMany
         # - mission_members: String
@@ -130,6 +132,15 @@ class TestSetupAPITestCase(APITestCase):
             period=['2021-01-01', '2021-12-31'],
             biblio='Biblio 1',
             citation='Citation 1'
+        )
+
+        # Notables
+        cls.notable_1 = Notable.objects.create(
+            author=cls.hera,
+            name='Notable 1',
+            description='Description 1',
+            first_name='First Name 1',
+            last_name='Last Name 1'
         )
 
     @classmethod

@@ -30,7 +30,8 @@ from entities.views import (
     SiteViewset,
     SubsiteViewset,
     ItemViewset,
-    MissionViewset
+    MissionViewset,
+    NotableViewset
 )
 
 
@@ -44,6 +45,7 @@ entitiesRouter.register('sites', SiteViewset, basename='site')
 entitiesRouter.register('subsites', SubsiteViewset, basename='subsite')
 entitiesRouter.register('items', ItemViewset, basename='item')
 entitiesRouter.register('missions', MissionViewset, basename='mission')
+entitiesRouter.register('notables', NotableViewset, basename='notable')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
