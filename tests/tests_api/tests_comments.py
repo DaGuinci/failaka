@@ -11,7 +11,7 @@ class CommentAPITestCase(TestSetupAPITestCase):
             'description': 'Test description',
             'author': self.hera.id,
             'status': 'pending',
-            'item': self.item_1.id,
+            'item': self.item_1.uuid,
             }
 
     def get_token(self, role):

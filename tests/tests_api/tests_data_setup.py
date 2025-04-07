@@ -145,13 +145,13 @@ class TestSetupAPITestCase(APITestCase):
         )
 
         # Comments
-        cls.comment_data = {
-            'name': 'Test Comment',
-            'description': 'Test description',
-            'author': cls.hera.id,
-            'status': 'pending',
-            'item': cls.item_1,
-        }
+        cls.comment_data = Comment.objects.create(
+            name='Test Comment',
+            description='Test description',
+            author=cls.hera,
+            status='pending',
+            item=cls.item_1,
+        )
 
     @classmethod
     def check_in_terminal(self, items):
