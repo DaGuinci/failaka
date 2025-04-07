@@ -12,6 +12,7 @@ from entities.models import (
     Item,
     Mission,
     Notable,
+    Comment
     )
 
 
@@ -142,6 +143,15 @@ class TestSetupAPITestCase(APITestCase):
             first_name='First Name 1',
             last_name='Last Name 1'
         )
+
+        # Comments
+        cls.comment_data = {
+            'name': 'Test Comment',
+            'description': 'Test description',
+            'author': cls.hera.id,
+            'status': 'pending',
+            'item': cls.item_1,
+        }
 
     @classmethod
     def check_in_terminal(self, items):
