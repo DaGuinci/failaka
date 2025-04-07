@@ -152,5 +152,16 @@
             "references": ["Reference 1", "Reference 2"],
             "citation": "Citation 1"
         }
+    },
+    {
+        "model": "entities.notable",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Lara Croft",
+            "description": "Awosome archaeologist",
+            "first_name": "Lara",
+            "last_name": "Croft"
+        }
     }
 ]
