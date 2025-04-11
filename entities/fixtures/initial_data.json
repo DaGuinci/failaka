@@ -3,7 +3,7 @@
         "model": "authentication.user",
         "pk": 1,
         "fields": {
-            "password": "pbkdf2_sha256$260000$examplehash",
+            "password": "adminpassword",
             "last_login": null,
             "is_superuser": true,
             "email": "admin@failalka.com",
@@ -16,7 +16,7 @@
         "model": "authentication.user",
         "pk": 2,
         "fields": {
-            "password": "pbkdf2_sha256$260000$examplehash",
+            "password": "validatorpassword",
             "last_login": null,
             "is_superuser": false,
             "email": "validator@failalka.com",
@@ -29,7 +29,7 @@
         "model": "authentication.user",
         "pk": 3,
         "fields": {
-            "password": "pbkdf2_sha256$260000$examplehash",
+            "password": "userpassword",
             "last_login": null,
             "is_superuser": false,
             "email": "user@failalka.com",
@@ -37,6 +37,19 @@
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
         }
+    },
+    {
+        "model": "entities.mission",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Mission d'Abou Simbel",
+            "mission_members": "John Doe, Jane Smith",
+            "type": "Type 1",
+            "period": "2021-01-01 to 2021-12-31",
+            "biblio": "Bibliography 1",
+            "citation": "Citation 1"
+        }      
     },
     {
         "model": "entities.site",
@@ -53,6 +66,7 @@
             "geology": "Geology 1",
             "geo_description": "Geo Description 1",
             "historio": "Historio 1",
+            "missions": [1],
             "justification": "Justification 1"
         }
     },
@@ -127,7 +141,7 @@
             "name": "Statue de Ramsès II",
             "site": 1,
             "subsite": 1,
-            "description": "Statue de Ramsès II",
+            "description": "Superbe statue du pharaon",
             "type": "Statue",
             "identification": "Statue 1",
             "item_date": "2021-01-01",
@@ -137,6 +151,28 @@
             "current_location": "Location 1",
             "references": ["Reference 1", "Reference 2"],
             "citation": "Citation 1"
+        }
+    },
+    {
+        "model": "entities.notable",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Lara Croft",
+            "description": "Awesome archaeologist",
+            "first_name": "Lara",
+            "last_name": "Croft"
+        }
+    },
+    {
+        "model": "entities.comment",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Comment 1",
+            "description": "This is a comment.",
+            "status": "pemding",
+            "item": 1
         }
     }
 ]

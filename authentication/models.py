@@ -11,6 +11,7 @@ class User(AbstractUser):
 #   - role: Enum
 #   - email: String
 #   - password: String
+#   - thumbnail: path
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = (["password"])
@@ -26,3 +27,4 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(max_length=150, unique=True, blank=False, null=False)
     role = models.CharField(max_length=9, choices=Role.choices, default=Role.VISITOR)
+    thumbnail = models.ImageField(upload_to='users/', blank=True, null=True)

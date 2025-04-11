@@ -10,6 +10,9 @@ from entities.models import (
     Site,
     Subsite,
     Item,
+    Mission,
+    Notable,
+    Comment
     )
 
 
@@ -112,6 +115,42 @@ class TestSetupAPITestCase(APITestCase):
             current_location='Current Location 2',
             references='References 2',
             citation='Citation 2'
+        )
+
+        # Missions
+        # - notables: Notables-manyToMany
+        # - mission_members: String
+        # - type: String
+        # - period: String
+        # - biblio: String
+        # - citation: String
+        cls.mission_1 = Mission.objects.create(
+            author=cls.hera,
+            name='Mission 1',
+            description='Description 1',
+            type='Type 1',
+            mission_members='Members 1',
+            period=['2021-01-01', '2021-12-31'],
+            biblio='Biblio 1',
+            citation='Citation 1'
+        )
+
+        # Notables
+        cls.notable_1 = Notable.objects.create(
+            author=cls.hera,
+            name='Notable 1',
+            description='Description 1',
+            first_name='First Name 1',
+            last_name='Last Name 1'
+        )
+
+        # Comments
+        cls.comment_data = Comment.objects.create(
+            name='Test Comment',
+            description='Test description',
+            author=cls.hera,
+            status='pending',
+            item=cls.item_1,
         )
 
     @classmethod

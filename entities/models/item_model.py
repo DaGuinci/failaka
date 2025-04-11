@@ -13,7 +13,6 @@ class Item(Resource):
     # identification: String
     # site: Site
     # subsite: Site.subsite
-    # thumbnail: Thumbnail
     # item_date: Tuple(Datetime)
     # family: String
     # scient_name: String
@@ -27,7 +26,6 @@ class Item(Resource):
     identification = models.CharField(max_length=150, blank=True, null=True)
     site = models.ForeignKey('Site', on_delete=models.CASCADE, blank=True, null=True)
     subsite = models.ForeignKey('Subsite', on_delete=models.CASCADE, blank=True, null=True, related_name='subsite')
-    # thumbnail = models.ImageField(upload_to='item_thumbnails/', blank=True, null=True)
     item_date = models.JSONField(blank=True, null=True)
     family = models.CharField(max_length=150, blank=True, null=True)
     scient_name = models.CharField(max_length=150, blank=True, null=True)

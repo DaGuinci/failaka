@@ -54,11 +54,13 @@ Class tables
        | role: Enum (VALID, ADMIN)
        | email: String
        | password: String
+       | thumbnail: image
    * - resource
      - | UUID: UUID
        | author: User
        | name: String
        | description: String
+       | thumbnail: image
    * - item (extends resource)
      - | UUID: UUID
        | author: User
@@ -68,7 +70,6 @@ Class tables
        | identification: String
        | site: Site
        | subsite: Site.subsite
-       | thumbnail: Thumbnail
        | item_date: Tuple(Datetime)
        | family: String
        | scient_name: String
@@ -106,13 +107,6 @@ Class tables
        | settle_type: String (Enum?)
        | material: String(Enum)
        | remains: String
-   * - Thumbnail (extends resource)
-     - | UUID: UUID
-       | author: User
-       | name: String
-       | description: String
-       | path: String
-       | method1(): ReturnType
    * - Mission (extends resource)
      - | UUID: UUID
        | author: User
@@ -180,7 +174,6 @@ Permissions
    * - | Resource
        | (Item, Site,
        | subsite,
-       | thumbnail,
        | mission,
        | notable)
      - | User
@@ -285,8 +278,8 @@ Have a database installed on your machine (PostgreSQL, MySQL, SQLite, etc.)
 
 ``http://localhost:8000``
 
-9. Useful commands
-
+Useful commands
+----------------
 
 To launch the server:
 
@@ -306,5 +299,4 @@ To reboot the database (DELETE ALL DATAS):
 
 .. code-block:: bash
     
-    python manage.py flush
-    python manage.py loaddata initial_data.json
+    python manage.py initdata
