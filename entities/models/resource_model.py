@@ -20,3 +20,5 @@ class Resource(models.Model):
     description = models.TextField(blank=True, null=True)
     thumbnail = models.ImageField(upload_to='resources/', blank=True, null=True)
     
+    def __str__(self):
+        return f"{self.name}"

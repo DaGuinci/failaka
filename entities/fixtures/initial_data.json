@@ -141,7 +141,7 @@
             "name": "Statue de Ramsès II",
             "site": 1,
             "subsite": 1,
-            "description": "Statue de Ramsès II",
+            "description": "Superbe statue du pharaon",
             "type": "Statue",
             "identification": "Statue 1",
             "item_date": "2021-01-01",
@@ -159,7 +159,7 @@
         "fields": {
             "author": 2,
             "name": "Lara Croft",
-            "description": "Awosome archaeologist",
+            "description": "Awesome archaeologist",
             "first_name": "Lara",
             "last_name": "Croft"
         }
