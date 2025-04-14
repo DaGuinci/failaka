@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Liste des Items</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <strong>Nom :</strong> {{ item.name }}<br>
+                <strong>Description :</strong> {{ item.description }}<br>
+                <strong>Type :</strong> {{ item.type }}<br>
+                <strong>Matériau :</strong> {{ item.material }}<br>
+                <strong>Localisation actuelle :</strong> {{ item.current_location }}<br>
+                <strong>Références :</strong> {{ item.references }}<br>
+                <strong>Auteur :</strong> {{ item.author_name }}<br>
+                <strong>Site :</strong> {{ item.site_name }}<br>
+                <strong>Famille :</strong> {{ item.family }}<br>
+                <strong>Date :</strong> {{ item.item_date }}
+            </li>
+            <hr>
+        {% empty %}
+            <li>Aucun item trouvé.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

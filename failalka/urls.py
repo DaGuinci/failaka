@@ -51,11 +51,12 @@ entitiesRouter.register('comments', CommentViewset, basename='comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include(userRouter.urls)),
-    path('auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
-    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('entities/', include(entitiesRouter.urls)),
+    path('api/auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/users/', include(userRouter.urls)),
+    path('api/', include(entitiesRouter.urls)),
     path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
     path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('', include('client.urls')),
 ]
