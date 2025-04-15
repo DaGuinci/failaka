@@ -4,6 +4,8 @@
         "pk": 1,
         "fields": {
             "password": "adminpassword",
+            "first_name": "Charles",
+            "last_name": "Darwin",
             "last_login": null,
             "is_superuser": true,
             "email": "admin@failalka.com",
@@ -17,6 +19,8 @@
         "pk": 2,
         "fields": {
             "password": "validatorpassword",
+            "first_name": "Marie",
+            "last_name": "Curie",
             "last_login": null,
             "is_superuser": false,
             "email": "validator@failalka.com",
@@ -30,6 +34,8 @@
         "pk": 3,
         "fields": {
             "password": "userpassword",
+            "first_name": "Albert",
+            "last_name": "Einstein",
             "last_login": null,
             "is_superuser": false,
             "email": "user@failalka.com",

@@ -300,3 +300,9 @@ To reboot the database (DELETE ALL DATAS):
 .. code-block:: bash
     
     python manage.py initdata
+
+Logical
+-------
+
+For every resource, serializer add a field called "author name"
+or "site name"... to avoid a get name by uuid request.

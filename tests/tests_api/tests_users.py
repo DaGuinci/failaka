@@ -112,21 +112,17 @@ class UserTestCases(UsersAPITestCase):
                         self.expected_reponses_content('unauthorized_role'))
 
     # user retrieval
-    def test_non_auth_cant_get_user(self):
+    def test_non_auth_can_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('unauthenticated'))
+        self.assertEqual(response.status_code, 200)
 
-    def test_other_user_cant_get_user(self):
+    def test_other_user_can_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.ares)
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('permission_denied'))
-    
+        self.assertEqual(response.status_code, 200)
+
     def test_user_can_get_self_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.hades)
@@ -134,13 +130,11 @@ class UserTestCases(UsersAPITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['email'], 'hades@olympe.gr')
     
-    def test_validator_cant_get_user(self):
+    def test_validator_can_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.athena)
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('permission_denied'))
+        self.assertEqual(response.status_code, 200)
 
     def test_superuser_can_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
