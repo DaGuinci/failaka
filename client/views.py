@@ -1,21 +1,26 @@
 import requests
 from django.shortcuts import render
 
-
-def home(request):
+def items_list(request):
     # API URL to retrieve items
     base_api_url = request.build_absolute_uri('/api/')
-    
+    items = []
+
     try:
-        # Make a GET request to the API
-        response = requests.get(base_api_url + 'items/')
-        response.raise_for_status()  # Check for HTTP errors
-        data = response.json()  # Convert the response to JSON
-        items = data.get('results', [])  # Retrieve the list of items
+        # Initial URL for the first page
+        url = base_api_url + 'items/'
+        while url:
+            # Make a GET request to the API
+            response = requests.get(url)
+            response.raise_for_status()  # Check for HTTP errors
+            data = response.json()  # Convert the response to JSON
+            items.extend(data.get('results', []))  # Append the results to the items list
+            url = data.get('next')  # Get the URL for the next page
+
+        print(f"Total items retrieved: {len(items)}")  # Debugging output
 
     except requests.exceptions.RequestException as e:
         # In case of an error, display an error message
-        items = []
         print(f"Error while retrieving items: {e}")
 
     # Render the template with the items
