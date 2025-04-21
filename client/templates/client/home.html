@@ -1,28 +1,35 @@
 {% extends 'client/base.html' %}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Items list</h1>
-<ul>
-    {% for item in items %}
-        <li>
-            <strong>Nom :</strong> {{ item.name }}<br>
-            <strong>Description :</strong> {{ item.description }}<br>
-            <strong>Type :</strong> {{ item.type }}<br>
-            <strong>Matériau :</strong> {{ item.material }}<br>
-            <strong>Localisation actuelle :</strong> {{ item.current_location }}<br>
-            <strong>Références :</strong> {{ item.references }}<br>
-            <strong>Auteur :</strong> {{ item.author_name }}<br>
-            <strong>Site :</strong> {{ item.site_name }}<br>
-            <strong>Famille :</strong> {{ item.family }}<br>
-            <strong>Date :</strong> {{ item.item_date }}
-        </li>
-        <hr>
-    {% empty %}
-        <li>No items found.</li>
-    {% endfor %}
-</ul>
+<div class="container mt-5">
+    <h1>Welcome to Failaka</h1>
+    <table 
+        id="table"
+        class="table table-striped"
+        data-toggle="table"
+        data-search="true"
+        data-pagination="true">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="name">Name</th>
+                <th data-field="description">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Temple of Abu Simbel</td>
+                <td>A temple in Egypt</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Temple of Angkor Wat</td>
+                <td>A temple in Cambodia</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
