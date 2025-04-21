@@ -5,7 +5,7 @@ Development
 Context
 -------
 
-Backup and Enhancement of the Failalka Mission items.
+Backup and Enhancement of the Failaka Mission items.
 
 Inspired by [this website](https://desertnetworks.huma-num.fr/)
 
@@ -231,7 +231,7 @@ Have a database installed on your machine (PostgreSQL, MySQL, SQLite, etc.)
 
 .. code-block:: bash
 
-    git clone https://github.com/DaGuinci/failalka.git
+    git clone https://github.com/DaGuinci/failaka.git
 
 3. Virtual environment creation
 

@@ -1,7 +1,7 @@
 # failaka
 Sauvegarde et valorisation des archives de la mission Failaka
 
-https://failalka.readthedocs.io/en/latest/
+https://failaka.readthedocs.io/en/latest/
 
 ## Useful commands
 
@@ -18,6 +18,5 @@ To launch tests suite:
 
 To reboot the database (DELETE ALL DATAS):
 ```bash
-    python manage.py flush
-    python manage.py loaddata initial_data.json
+    python manage.py initdata
 ```
