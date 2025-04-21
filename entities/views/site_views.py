@@ -2,6 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from entities.models import Site
 from entities.serializers import SiteSerializer
 from entities.permissions import ResourcePermission
+from rest_framework.response import Response
 
 # Create your views here.
 class SiteViewset(ModelViewSet):

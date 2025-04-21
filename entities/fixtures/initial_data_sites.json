@@ -1,0 +1,84 @@
+[
+    {
+        "model": "entities.site",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Temple of Abu Simbel",
+            "type": "Type 1",
+            "description": "A temple in Egypt",
+            "keywords": ["Egypt", "Osiris", "Temple"],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "location": [0.0, 0.0],
+            "location_name": "Location 1",
+            "geology": "Geology 1",
+            "geo_description": "Geo Description 1",
+            "historio": "Historio 1",
+            "missions": [1],
+            "justification": "Justification 1"
+        }
+    },
+    {
+        "model": "entities.site",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "name": "Temple of Angkor Wat",
+            "type": "Type 1",
+            "description": "A temple in Cambodia",
+            "keywords": ["Cambodia", "Buddhism", "Temple"],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "location": [0.0, 0.0],
+            "location_name": "Location 1",
+            "geology": "Geology 1",
+            "geo_description": "Geo Description 1",
+            "historio": "Historio 1",
+            "justification": "Justification 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Entrée d'Abou Simbel",
+            "site": 1,
+            "location": [0.0, 0.0],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "justification": "Justification 1",
+            "settle_type": "Settle Type 1",
+            "material": "Material 1",
+            "remains": "Remains 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "name": "Cour intérieure",
+            "site": 1,
+            "location": [0.0, 0.0],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "justification": "Justification 1",
+            "settle_type": "Settle Type 1",
+            "material": "Material 1",
+            "remains": "Remains 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 3,
+        "fields": {
+            "author": 1,
+            "name": "Prayer Room",
+            "site": 2,
+            "location": [0.0, 0.0],
+            "chrono": ["2021-01-01", "2021-12-31"],
+            "justification": "Justification 1",
+            "settle_type": "Settle Type 1",
+            "material": "Material 1",
+            "remains": "Remains 1"
+        }
+    }
+]
