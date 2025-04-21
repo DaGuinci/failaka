@@ -8,7 +8,7 @@
             "last_name": "Darwin",
             "last_login": null,
             "is_superuser": true,
-            "email": "admin@failalka.com",
+            "email": "admin@failaka.com",
             "is_staff": true,
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
@@ -23,7 +23,7 @@
             "last_name": "Curie",
             "last_login": null,
             "is_superuser": false,
-            "email": "validator@failalka.com",
+            "email": "validator@failaka.com",
             "is_staff": true,
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
@@ -38,7 +38,7 @@
             "last_name": "Einstein",
             "last_login": null,
             "is_superuser": false,
-            "email": "user@failalka.com",
+            "email": "user@failaka.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"

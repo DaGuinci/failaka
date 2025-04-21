@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # sites creation
         # get author user by email
-        author = User.objects.get(email='admin@failalka.com').id
+        author = User.objects.get(email='admin@failaka.com').id
         sites = [
             # Site 1
             {

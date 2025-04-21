@@ -15,7 +15,7 @@ BorderColor #EEB258
 AttributeFontColor linen
 }
 ' skinparam handwritten true
-title Failalka Class diagram
+title Failaka Class diagram
 
 class resource {
   - UUID: UUID
