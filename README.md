@@ -1,5 +1,5 @@
-# failalka
-Sauvegarde et valorisation des archives de la mission Failalka
+# failaka
+Sauvegarde et valorisation des archives de la mission Failaka
 
 https://failalka.readthedocs.io/en/latest/
 
