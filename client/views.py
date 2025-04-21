@@ -1,33 +1,40 @@
 import requests
 from django.shortcuts import render
 
-# def fetch_name(api_url, uuid):
-#     """Effectue une requête pour récupérer le nom associé à un UUID."""
-#     try:
-#         response = requests.get(f"{api_url}/{uuid}/")
-#         response.raise_for_status()
-#         data = response.json()
-#         return data.get('name', 'Nom inconnu')  # Retourne le nom ou 'Nom inconnu' si absent
-    
-#     except requests.exceptions.RequestException as e:
-#         print(f"Erreur lors de la récupération du nom pour {uuid} : {e}")
-#         return 'Nom inconnu'
 
 def home(request):
-    # URL de l'API pour récupérer les items
+    # API URL to retrieve items
     base_api_url = request.build_absolute_uri('/api/')
     
     try:
-        # Effectuer une requête GET à l'API
+        # Make a GET request to the API
         response = requests.get(base_api_url + 'items/')
-        response.raise_for_status()  # Vérifie les erreurs HTTP
-        data = response.json()  # Convertit la réponse en JSON
-        items = data.get('results', [])  # Récupère la liste des items
+        response.raise_for_status()  # Check for HTTP errors
+        data = response.json()  # Convert the response to JSON
+        items = data.get('results', [])  # Retrieve the list of items
 
     except requests.exceptions.RequestException as e:
-        # En cas d'erreur, afficher un message d'erreur
+        # In case of an error, display an error message
         items = []
-        print(f"Erreur lors de la récupération des items : {e}")
+        print(f"Error while retrieving items: {e}")
 
-    # Rendre le template avec les items
+    # Render the template with the items
     return render(request, 'client/home.html', {'items': items})
+
+def item_detail(request, item_id):
+    # API URL to retrieve item details
+    base_api_url = request.build_absolute_uri('/api/')
+    
+    try:
+        # Make a GET request to the API
+        response = requests.get(base_api_url + f'items/{item_id}/')
+        response.raise_for_status()  # Check for HTTP errors
+        item = response.json()  # Convert the response to JSON
+
+    except requests.exceptions.RequestException as e:
+        # In case of an error, display an error message
+        item = {}
+        print(f"Error while retrieving item {item_id}: {e}")
+
+    # Render the template with the item details
+    return render(request, 'client/item_detail.html', {'item': item})

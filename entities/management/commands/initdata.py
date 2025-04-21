@@ -7,7 +7,10 @@ class Command(BaseCommand):
     help = "DEV COMMAND: Fill databasse with a set of data for testing purposes"
 
     def handle(self, *args, **options):
-        call_command('loaddata','initial_data')
+        call_command('loaddata', 'initial_data_users')
+        call_command('loaddata', 'initial_data_sites')
+        call_command('loaddata', 'initial_data_items')
+        call_command('loaddata', 'initial_data_others')
         # Fix the passwords of fixtures
         for user in User.objects.all():
             user.set_password(user.password)
