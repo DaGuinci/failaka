@@ -1,0 +1,62 @@
+[
+    {
+        "model": "entities.item",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "name": "Statue of Ramses II",
+            "site": 1,
+            "subsite": 1,
+            "description": "Magnificent statue of the pharaoh",
+            "type": "Statue",
+            "identification": "Statue 1",
+            "item_date": "2021-01-01",
+            "family": "Statue Family",
+            "scient_name": "Statue Scientific Name",
+            "material": "Stone",
+            "current_location": "Location 1",
+            "references": ["Reference 1", "Reference 2"],
+            "citation": "Citation 1"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "name": "Ceramic Vase",
+            "site": 1,
+            "subsite": 1,
+            "description": "Ceramic vase from the Roman period",
+            "type": "Vase",
+            "identification": "Vase 1",
+            "item_date": "2021-01-01",
+            "family": "Vase Family",
+            "scient_name": "Vase Scientific Name",
+            "material": "Ceramic",
+            "current_location": "Location 2",
+            "references": ["Reference 3", "Reference 4"],
+            "citation": "Citation 2"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 3,
+        "fields": {
+            "author": 1,
+            "name": "Pottery",
+            "site": 2,
+            "subsite": 3,
+            "description": "Pottery from the Roman period",
+            "type": "Pottery",
+            "identification": "Pottery 1",
+            "item_date": "2021-01-01",
+            "family": "Pottery Family",
+            "scient_name": "Pottery Scientific Name",
+            "material": "Clay",
+            "current_location": "Location 3",
+            "references": ["Reference 5", "Reference 6"],
+            "citation": "Citation 3"
+        }
+    }
+]

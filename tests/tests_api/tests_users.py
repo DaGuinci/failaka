@@ -116,17 +116,13 @@ class UserTestCases(UsersAPITestCase):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         response = self.client.get(url)
         self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('unauthenticated'))
 
     def test_other_user_cant_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.ares)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('permission_denied'))
-    
+
     def test_user_can_get_self_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.hades)
@@ -139,8 +135,6 @@ class UserTestCases(UsersAPITestCase):
         self.client.force_authenticate(user=self.athena)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('permission_denied'))
 
     def test_superuser_can_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })

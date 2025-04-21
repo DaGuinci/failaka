@@ -1,5 +1,5 @@
 """
-URL configuration for failalkaApi project.
+URL configuration for failakaApi project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -28,7 +28,11 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from authentication.views import UserViewset
 from entities.views import (
     SiteViewset,
-    SubsiteViewset
+    SubsiteViewset,
+    ItemViewset,
+    MissionViewset,
+    NotableViewset,
+    CommentViewset
 )
 
 
@@ -40,14 +44,19 @@ entitiesRouter = routers.SimpleRouter()
 userRouter.register('', UserViewset, basename='user')
 entitiesRouter.register('sites', SiteViewset, basename='site')
 entitiesRouter.register('subsites', SubsiteViewset, basename='subsite')
+entitiesRouter.register('items', ItemViewset, basename='item')
+entitiesRouter.register('missions', MissionViewset, basename='mission')
+entitiesRouter.register('notables', NotableViewset, basename='notable')
+entitiesRouter.register('comments', CommentViewset, basename='comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include(userRouter.urls)),
-    path('auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
-    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('entities/', include(entitiesRouter.urls)),
+    path('api/auth/token/', TokenObtainPairView.as_view(), name='auth_token'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/users/', include(userRouter.urls)),
+    path('api/', include(entitiesRouter.urls)),
     path('docs/swagger/', SpectacularAPIView.as_view(), name='schema'),
     path('docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('', include('client.urls')),
 ]

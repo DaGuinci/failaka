@@ -17,7 +17,7 @@ class Command(BaseCommand):
             },
             # Administrateur
             {
-                'email': 'admin@failalka.com',
+                'email': 'admin@failaka.com',
                 'password': 'password',
                 'role': 'admin',
                 'is_superuser': False,
@@ -25,7 +25,7 @@ class Command(BaseCommand):
             },
             # Validator
             {
-                'email': 'validator@failalka.com',
+                'email': 'validator@failaka.com',
                 'password': 'password',
                 'role': 'validator',
                 'is_superuser': False,
@@ -33,7 +33,7 @@ class Command(BaseCommand):
             },
             # Visiteur
             {
-                'email': 'visitor@failalka.com',
+                'email': 'visitor@failaka.com',
                 'password': 'password',
                 'role': 'visitor',
                 'is_superuser': False,

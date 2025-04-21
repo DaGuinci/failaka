@@ -16,7 +16,7 @@ class Site(Resource):
         # geology: String
         # geo_description: String
         # historio: String
-        # missions: Mission
+        # missions: Mission-manyToMany
         # justification: String
 
     type = models.CharField(max_length=150, blank=False, null=False)
@@ -28,5 +28,5 @@ class Site(Resource):
     geology = models.CharField(max_length=150, blank=True, null=True)
     geo_description = models.TextField(blank=True, null=True)
     historio = models.TextField(blank=True, null=True)
-    # missions = models.ForeignKey('Mission', on_delete=models.CASCADE, blank=True, null=True)
+    missions = models.ManyToManyField('Mission', blank=True)
     justification = models.TextField(blank=True, null=True)
