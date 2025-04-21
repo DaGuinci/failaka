@@ -21,7 +21,6 @@
                 data-show-export="true">
                 <thead class="table-dark">
                     <tr>
-                        <th data-field="id" data-sortable="true">ID</th>
                         <th data-field="name" data-sortable="true">Name</th>
                         <th data-field="description">Description</th>
                         <th data-field="site" data-sortable="true">Site</th>
@@ -31,10 +30,17 @@
                 <tbody>
                     {% for item in items %}
                     <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
+                        <td>
+                            <a href="{% url 'item_detail' item.uuid %}">
+                                {{ item.name }}
+                            </a>
+                        </td>
                         <td>{{ item.description }}</td>
-                        <td>{{ item.site.name }}</td>
+                        <td>
+                            <a href="{% url 'site_detail' item.site %}">
+                                {{ item.site_name }}
+                            </a>
+                        </td>
                         <td>{{ item.subsite.name }}</td>
                     </tr>
                     {% endfor %}

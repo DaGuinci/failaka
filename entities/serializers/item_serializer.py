@@ -5,8 +5,9 @@ from entities.serializers import SiteSerializer, SubsiteSerializer
 class ItemSerializer(serializers.ModelSerializer):
     author_name = serializers.SerializerMethodField()
     site_name = serializers.SerializerMethodField()
-    site = SiteSerializer(read_only=True)  # Utilise le serializer de Site pour le champ 'site'
-    subsite = SubsiteSerializer(read_only=True)  # Utilise le serializer de Subsite pour le champ 'subsite'
+    site_uuid = serializers.UUIDField(source='site.uuid', read_only=True)  # UUID du site
+    # site = SiteSerializer(read_only=True)  # Utilise le serializer de Site pour le champ 'site'
+    # subsite = SubsiteSerializer(read_only=True)  # Utilise le serializer de Subsite pour le champ 'subsite'
 
     class Meta:
         model = Item
