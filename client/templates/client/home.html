@@ -24,6 +24,8 @@
                         <th data-field="id" data-sortable="true">ID</th>
                         <th data-field="name" data-sortable="true">Name</th>
                         <th data-field="description">Description</th>
+                        <th data-field="site" data-sortable="true">Site</th>
+                        <th data-field="subsite" data-sortable="true">Subsite</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +34,8 @@
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
+                        <td>{{ item.site.name }}</td>
+                        <td>{{ item.subsite.name }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
