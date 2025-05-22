@@ -8,6 +8,7 @@
             "last_name": "Darwin",
             "last_login": null,
             "is_superuser": true,
+            "role": "admin",
             "email": "admin@failaka.com",
             "is_staff": true,
             "is_active": true,
@@ -43,18 +44,5 @@
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
         }
-    },
-    {
-        "model": "entities.mission",
-        "pk": 1,
-        "fields": {
-            "author": 2,
-            "name": "Mission d'Abou Simbel",
-            "mission_members": "John Doe, Jane Smith",
-            "type": "Type 1",
-            "period": "2021-01-01 to 2021-12-31",
-            "biblio": "Bibliography 1",
-            "citation": "Citation 1"
-        }      
     }
 ]

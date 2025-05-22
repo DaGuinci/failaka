@@ -1,0 +1,26 @@
+[
+    {
+        "model": "entities.mission",
+        "pk": "00000000000000000000000000000001",
+        "fields": {
+            "author": "00000000000000000000000000000001",
+            "mission_members": "John Doe, Jane Smith",
+            "type": "Archaeological",
+            "period": "2021-2022",
+            "biblio": "Some bibliography text here.",
+            "citation": "Some citation text here."
+        }
+    },
+    {
+        "model": "entities.mission",
+        "pk": "00000000000000000000000000000002",
+        "fields": {
+            "author": "00000000000000000000000000000001",
+            "mission_members": "Alice Brown, Bob White",
+            "type": "Geological",
+            "period": "2020-2021",
+            "biblio": "Another bibliography text here.",
+            "citation": "Another citation text here."
+        }
+    }
+]

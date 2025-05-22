@@ -1,6 +1,6 @@
 import uuid
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 
 class User(AbstractUser):
@@ -8,7 +8,7 @@ class User(AbstractUser):
 #   - UUID: UUID
 #   - firstname: String
 #   - lastname: String
-#   - role: Enum
+#   - groupe: Group
 #   - email: String
 #   - password: String
 #   - thumbnail: path
@@ -28,3 +28,6 @@ class User(AbstractUser):
     email = models.EmailField(max_length=150, unique=True, blank=False, null=False)
     role = models.CharField(max_length=9, choices=Role.choices, default=Role.VISITOR)
     thumbnail = models.ImageField(upload_to='users/', blank=True, null=True)
+
+
+    
