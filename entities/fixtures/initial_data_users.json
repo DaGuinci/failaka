@@ -8,12 +8,12 @@
             "last_name": "Darwin",
             "last_login": null,
             "is_superuser": true,
-            "role": "admin",
             "email": "admin@failaka.com",
             "is_staff": true,
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
-        }
+        },
+        "group": "admins"
     },
     {
         "model": "authentication.user",
@@ -28,7 +28,8 @@
             "is_staff": true,
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
-        }
+        },
+        "group": "validators"
     },
     {
         "model": "authentication.user",
@@ -43,6 +44,7 @@
             "is_staff": false,
             "is_active": true,
             "date_joined": "2025-01-01T00:00:00Z"
-        }
+        },
+        "group": "visitors"
     }
 ]

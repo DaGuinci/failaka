@@ -1,7 +1,8 @@
+import json
 from django.core.management import BaseCommand, call_command
 from django.conf import settings
 from authentication.models import User
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group
 
 
 class Command(BaseCommand):
@@ -9,35 +10,35 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Create groups
-        groups_permissions = {
-            'admins': ['add_user', 'change_user', 'delete_user', 'view_user'],
-            'validators': ['can_validate'],
-            'visitors': ['view_user'],
-        }
-
-        for group_name, permissions in groups_permissions.items():
+        groups = ['admins', 'validators', 'visitors']
+        for group_name in groups:
             group, created = Group.objects.get_or_create(name=group_name)
             if created:
                 self.stdout.write(f"Group '{group_name}' created.")
             else:
                 self.stdout.write(f"Group '{group_name}' already exists.")
 
-            # Assign permissions to the group
-            for perm_codename in permissions:
-                try:
-                    permission = Permission.objects.get(codename=perm_codename)
-                    group.permissions.add(permission)
-                except Permission.DoesNotExist:
-                    self.stdout.write(f"Permission '{perm_codename}' does not exist.")
-
         # Load data only in development mode
         if settings.DEBUG:
             self.stdout.write("Development mode detected. Loading fixtures...")
             call_command('loaddata', 'initial_data_users')
-            call_command('loaddata', 'initial_data_missions')
-            call_command('loaddata', 'initial_data_sites')
-            call_command('loaddata', 'initial_data_items')
-            call_command('loaddata', 'initial_data_others')
+
+            # Assign groups to users based on the JSON file
+            with open('entities/fixtures/initial_data_users.json', 'r') as f:
+                users_data = json.load(f)
+
+            for user_data in users_data:
+                group_name = user_data.get("group")
+                if group_name:
+                    try:
+                        user = User.objects.get(pk=user_data["pk"])
+                        group = Group.objects.get(name=group_name)
+                        user.groups.set([group])  # Replace existing groups
+                        self.stdout.write(f"User '{user.email}' added to group '{group.name}'.")
+                    except User.DoesNotExist:
+                        self.stdout.write(f"User with pk '{user_data['pk']}' does not exist.")
+                    except Group.DoesNotExist:
+                        self.stdout.write(f"Group '{group_name}' does not exist.")
 
             # Fix the passwords of fixtures
             for user in User.objects.all():

@@ -4,6 +4,12 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 
 class User(AbstractUser):
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.groups.count() > 1:
+            # Si l'utilisateur appartient à plusieurs groupes, ne garder que le dernier ajouté
+            last_group = self.groups.last()
+            self.groups.set([last_group])
 
 #   - UUID: UUID
 #   - firstname: String
@@ -25,4 +31,3 @@ class User(AbstractUser):
     thumbnail = models.ImageField(upload_to='users/', blank=True, null=True)
 
 
-    
