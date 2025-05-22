@@ -36,8 +36,8 @@ class Command(BaseCommand):
             call_command('loaddata', 'initial_data_users')
             call_command('loaddata', 'initial_data_missions')
             call_command('loaddata', 'initial_data_sites')
-            # call_command('loaddata', 'initial_data_items')
-            # call_command('loaddata', 'initial_data_others')
+            call_command('loaddata', 'initial_data_items')
+            call_command('loaddata', 'initial_data_others')
 
             # Fix the passwords of fixtures
             for user in User.objects.all():

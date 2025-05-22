@@ -308,3 +308,5 @@ For every resource, serializer add a field called "author name"
 or "site name"... to avoid a get name by uuid request.
 
 Client is managed by coreapi.
+
+Groups permissions are managed in initdata.py (entities/management/commands/initdata.py)
