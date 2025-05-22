@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# npm
+node_modules/
+package-lock.json
+yarn-error.log

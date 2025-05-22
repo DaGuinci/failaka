@@ -58,5 +58,165 @@
             "references": ["Reference 5", "Reference 6"],
             "citation": "Citation 3"
         }
+    },
+    {
+        "model": "entities.item",
+        "pk": 4,
+        "fields": {
+            "author": 2,
+            "name": "Bronze Sword",
+            "site": 3,
+            "subsite": 2,
+            "description": "Ancient bronze sword from the Iron Age",
+            "type": "Weapon",
+            "identification": "Sword 1",
+            "item_date": "2020-05-15",
+            "family": "Weapon Family",
+            "scient_name": "Bronze Sword Scientific Name",
+            "material": "Bronze",
+            "current_location": "Location 4",
+            "references": ["Reference 7", "Reference 8"],
+            "citation": "Citation 4"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 5,
+        "fields": {
+            "author": 3,
+            "name": "Golden Necklace",
+            "site": 4,
+            "subsite": 1,
+            "description": "Necklace made of gold from the Byzantine period",
+            "type": "Jewelry",
+            "identification": "Necklace 1",
+            "item_date": "2019-11-20",
+            "family": "Jewelry Family",
+            "scient_name": "Golden Necklace Scientific Name",
+            "material": "Gold",
+            "current_location": "Location 5",
+            "references": ["Reference 9", "Reference 10"],
+            "citation": "Citation 5"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 6,
+        "fields": {
+            "author": 1,
+            "name": "Marble Column",
+            "site": 5,
+            "subsite": 3,
+            "description": "Column from a Roman temple",
+            "type": "Architecture",
+            "identification": "Column 1",
+            "item_date": "2022-03-10",
+            "family": "Architecture Family",
+            "scient_name": "Marble Column Scientific Name",
+            "material": "Marble",
+            "current_location": "Location 6",
+            "references": ["Reference 11", "Reference 12"],
+            "citation": "Citation 6"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 7,
+        "fields": {
+            "author": 2,
+            "name": "Iron Helmet",
+            "site": 1,
+            "subsite": 2,
+            "description": "Helmet used by Roman soldiers",
+            "type": "Armor",
+            "identification": "Helmet 1",
+            "item_date": "2021-07-01",
+            "family": "Armor Family",
+            "scient_name": "Iron Helmet Scientific Name",
+            "material": "Iron",
+            "current_location": "Location 7",
+            "references": ["Reference 13", "Reference 14"],
+            "citation": "Citation 7"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 8,
+        "fields": {
+            "author": 3,
+            "name": "Silver Coin",
+            "site": 1,
+            "subsite": 1,
+            "description": "Coin from the Hellenistic period",
+            "type": "Currency",
+            "identification": "Coin 1",
+            "item_date": "2020-09-25",
+            "family": "Currency Family",
+            "scient_name": "Silver Coin Scientific Name",
+            "material": "Silver",
+            "current_location": "Location 8",
+            "references": ["Reference 15", "Reference 16"],
+            "citation": "Citation 8"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 9,
+        "fields": {
+            "author": 1,
+            "name": "Wooden Shield",
+            "site": 1,
+            "subsite": 3,
+            "description": "Shield used in medieval battles",
+            "type": "Defense",
+            "identification": "Shield 1",
+            "item_date": "2021-12-12",
+            "family": "Defense Family",
+            "scient_name": "Wooden Shield Scientific Name",
+            "material": "Wood",
+            "current_location": "Location 9",
+            "references": ["Reference 17", "Reference 18"],
+            "citation": "Citation 9"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 10,
+        "fields": {
+            "author": 2,
+            "name": "Glass Vase",
+            "site": 1,
+            "subsite": 2,
+            "description": "Vase made of glass from the Roman period",
+            "type": "Vase",
+            "identification": "Vase 2",
+            "item_date": "2022-02-14",
+            "family": "Vase Family",
+            "scient_name": "Glass Vase Scientific Name",
+            "material": "Glass",
+            "current_location": "Location 10",
+            "references": ["Reference 19", "Reference 20"],
+            "citation": "Citation 10"
+        }
+    },
+    {
+        "model": "entities.item",
+        "pk": 11,
+        "fields": {
+            "author": 3,
+            "name": "Ivory Comb",
+            "site": 1,
+            "subsite": 1,
+            "description": "Comb carved from ivory",
+            "type": "Personal Item",
+            "identification": "Comb 1",
+            "item_date": "2020-08-08",
+            "family": "Personal Item Family",
+            "scient_name": "Ivory Comb Scientific Name",
+            "material": "Ivory",
+            "current_location": "Location 11",
+            "references": ["Reference 21", "Reference 22"],
+            "citation": "Citation 11"
+        }
     }
 ]
