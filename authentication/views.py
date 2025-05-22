@@ -64,7 +64,7 @@ class UserViewset(ModelViewSet):
 
             group = Group.objects.get(name=group_name)
             user.groups.set([group])  # Replace existing groups with the new group
-            return Response({"detail": f"User {user.username} added to group {group.name}."}, status=status.HTTP_200_OK)
+            return Response({"detail": f"User {user.email} added to group {group.name}."}, status=status.HTTP_200_OK)
         except Group.DoesNotExist:
             return Response({"detail": "Group not found."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:

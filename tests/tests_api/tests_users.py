@@ -64,7 +64,7 @@ class UserTestCases(UsersAPITestCase):
     def test_any_can_register(self):
         url = reverse_lazy('user-list')
         response = self.client.post(url, {
-            'username': 'artemis',
+            # 'username': 'artemis',
             'email': 'artemis@olympe.gr',
             'password': 'password'
             }, format='json')
@@ -76,7 +76,7 @@ class UserTestCases(UsersAPITestCase):
     def test_email_exists(self):
         url = reverse_lazy('user-list')
         response = self.client.post(url, {
-            'username': 'hera',
+            # 'username': 'hera',
             'email': 'hera@olympe.gr',
             'password': 'password'
             }, format='json')
@@ -88,7 +88,7 @@ class UserTestCases(UsersAPITestCase):
     def test_invalid_email(self):
         url = reverse_lazy('user-list')
         response = self.client.post(url, {
-            'username': 'hera',
+            # 'username': 'hera',
             'email': 'hera',
             'password': 'password'
             }, format='json')
@@ -100,7 +100,7 @@ class UserTestCases(UsersAPITestCase):
     def test_unauthorized_group(self):
         url = reverse_lazy('user-list')
         response = self.client.post(url, {
-            'username': 'poseidon',
+            # 'username': 'poseidon',
             'email': 'poseidon@olympe.gr',
             'password': 'password',
             'group': 'admins'
@@ -152,7 +152,7 @@ class UserTestCases(UsersAPITestCase):
     def test_non_auth_cant_update_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         response = self.client.patch(url, {
-            'username': 'hades',
+            # 'username': 'hades',
             'email': 'hades@gmail.com',
             'password': 'password'
             }, format='json')
@@ -164,7 +164,7 @@ class UserTestCases(UsersAPITestCase):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.ares)
         response = self.client.patch(url, {
-            'username': 'hades',
+            # 'username': 'hades',
             'email': 'hades@gmail.com',
             'password': 'password'
             }, format='json')
@@ -176,7 +176,7 @@ class UserTestCases(UsersAPITestCase):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.hades)
         response = self.client.patch(url, {
-            'username': 'hades',
+            # 'username': 'hades',
             'email': 'hades@gmail.com',
             'password': 'password'
             }, format='json')
@@ -187,7 +187,7 @@ class UserTestCases(UsersAPITestCase):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.athena)
         response = self.client.patch(url, {
-            'username': 'hades',
+            # 'username': 'hades',
             'email': 'hades@gmail.com',
             'password': 'password'
             }, format='json')
@@ -199,7 +199,7 @@ class UserTestCases(UsersAPITestCase):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.hera)
         response = self.client.patch(url, {
-            'username': 'hades',
+            # 'username': 'hades',
             'email': 'hades@gmail.com',
             'password': 'password'
             }, format='json')
@@ -210,7 +210,7 @@ class UserTestCases(UsersAPITestCase):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.zeus)
         response = self.client.patch(url, {
-            'username': 'hades',
+            # 'username': 'hades',
             'email': 'hades@gmail.com',
             'password': 'password'
             }, format='json')
@@ -283,7 +283,7 @@ class UserTestCases(UsersAPITestCase):
         response = self.client.post(url, {'group_name': 'admins'}, format='json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(),
-                         {'detail': f"User {self.hades.username} added to group admins."})
+                         {'detail': f"User {self.hades.email} added to group admins."})
 
     # Test: Superuser can add a user to a group
     def test_superuser_can_add_user_to_group(self):
@@ -292,7 +292,7 @@ class UserTestCases(UsersAPITestCase):
         response = self.client.post(url, {'group_name': 'validators'}, format='json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(),
-                         {'detail': f"User {self.hades.username} added to group validators."})
+                         {'detail': f"User {self.hades.email} added to group validators."})
 
     # Test: Adding to a non-existent group
     def test_add_user_to_nonexistent_group(self):
