@@ -5,6 +5,7 @@ from rest_framework.test import APIClient
 from authentication.models import User
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 from entities.models import (
     Site,
@@ -24,38 +25,47 @@ class TestSetupAPITestCase(APITestCase):
     def setUpTestData(cls):
         cls.client = APIClient()
 
+        # Create groups
+        cls.admin_group = Group.objects.create(name='admins')
+        cls.validator_group = Group.objects.create(name='validators')
+        cls.visitor_group = Group.objects.create(name='visitors')
+
         # Superuser
         UserModel = get_user_model()
-        cls.zeus = UserModel.objects.create_superuser('Zeus_superuser', 'admin@olympe.gr', 'pass')
+        cls.zeus = UserModel.objects.create_superuser(
+            email='admin@olympe.gr',
+            password='pass')
 
         # Admin
         cls.hera = User.objects.create_user(
-            username='hera_admin',
+            # username='hera_admin',
             email='hera@olympe.gr',
             password='pass',
-            role='admin'
         )
+        cls.hera.groups.set(Group.objects.filter(name='admins'))
 
-        # validator
+        # Validator
         cls.athena = User.objects.create_user(
-            username='athena_validator',
+            # username='athena_validator',
             email='athena@olympe.gr',
             password='pass',
-            role='validator'
         )
+        cls.athena.groups.set(Group.objects.filter(name='validators'))
 
         # Users
         cls.hades = User.objects.create_user(
-            username='hades_user',
+            # username='hades_user',
             email='hades@olympe.gr',
             password='pass',
         )
+        cls.hades.groups.set(Group.objects.filter(name='visitors'))
 
         cls.ares = User.objects.create_user(
-            username='ares_user',
+            # username='ares_user',
             email='ares@olympe.gr',
             password='pass',
         )
+        cls.ares.groups.set(Group.objects.filter(name='visitors'))
 
         # Sites
         cls.site_1 = Site.objects.create(
