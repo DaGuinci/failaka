@@ -15,8 +15,15 @@ class UserPermission(BasePermission):
             if request.data.get('group') and request.data.get('group') != 'visitors':
                 raise PermissionDenied("You only have permission to create a visitor.")
             return True
-        else:
-            return view.action in ['retrieve', 'update', 'partial_update', 'destroy']
+
+        # Allow only admins or superusers to access 'add-to-group'
+        if view.action == 'add_to_group':
+            return request.user.is_authenticated and (
+                request.user.is_superuser or request.user.groups.filter(name='admins').exists()
+            )
+
+        # Default permissions for other actions
+        return view.action in ['retrieve', 'update', 'partial_update', 'destroy']
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_authenticated and request.user.is_superuser:

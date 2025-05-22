@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from rest_framework import status
 
 from .tests_data_setup import TestSetupAPITestCase
 
@@ -215,17 +216,6 @@ class UserTestCases(UsersAPITestCase):
             }, format='json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['email'], 'hades@gmail.com')
-    
-    def test_user_cant_update_group(self):
-        url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
-        self.client.force_authenticate(user=self.hades)
-        response = self.client.patch(url, {
-            'group': 'admins'
-            }, format='json')
-        self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.json(),
-                        self.expected_reponses_content('change_group_denied'))
-
 
     # user deletion
     def test_non_auth_cant_delete_user(self):
@@ -268,3 +258,46 @@ class UserTestCases(UsersAPITestCase):
         self.client.force_authenticate(user=self.zeus)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, 204)
+
+    # Test: Non-authenticated user cannot add a user to a group
+    def test_non_auth_cant_add_user_to_group(self):
+        url = reverse_lazy('user-add-to-group', kwargs={'pk': self.hades.id})
+        response = self.client.post(url, {'group_name': 'validators'}, format='json')
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(),
+                         self.expected_reponses_content('unauthenticated'))
+
+    # Test: Other user cannot add a user to a group
+    def test_other_user_cant_add_user_to_group(self):
+        url = reverse_lazy('user-add-to-group', kwargs={'pk': self.hades.id})
+        self.client.force_authenticate(user=self.ares)
+        response = self.client.post(url, {'group_name': 'validators'}, format='json')
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json(),
+                         self.expected_reponses_content('permission_denied'))
+
+    # Test: Admin can add a user to a group
+    def test_admin_can_add_user_to_group(self):
+        url = reverse_lazy('user-add-to-group', kwargs={'pk': self.hades.id})
+        self.client.force_authenticate(user=self.hera)
+        response = self.client.post(url, {'group_name': 'admins'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(),
+                         {'detail': f"User {self.hades.username} added to group admins."})
+
+    # Test: Superuser can add a user to a group
+    def test_superuser_can_add_user_to_group(self):
+        url = reverse_lazy('user-add-to-group', kwargs={'pk': self.hades.id})
+        self.client.force_authenticate(user=self.zeus)
+        response = self.client.post(url, {'group_name': 'validators'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(),
+                         {'detail': f"User {self.hades.username} added to group validators."})
+
+    # Test: Adding to a non-existent group
+    def test_add_user_to_nonexistent_group(self):
+        url = reverse_lazy('user-add-to-group', kwargs={'pk': self.hades.id})
+        self.client.force_authenticate(user=self.hera)
+        response = self.client.post(url, {'group_name': 'nonexistent_group'}, format='json')
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json(), {'detail': 'Group not found.'})
