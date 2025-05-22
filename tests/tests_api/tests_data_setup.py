@@ -39,7 +39,6 @@ class TestSetupAPITestCase(APITestCase):
             username='hera_admin',
             email='hera@olympe.gr',
             password='pass',
-            role='admin',
         )
         cls.hera.groups.set(Group.objects.filter(name='admins'))
 
@@ -48,7 +47,6 @@ class TestSetupAPITestCase(APITestCase):
             username='athena_validator',
             email='athena@olympe.gr',
             password='pass',
-            role='validator',
         )
         cls.athena.groups.set(Group.objects.filter(name='validators'))
 

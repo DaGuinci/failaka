@@ -14,16 +14,13 @@ class UsersAPITestCase(TestSetupAPITestCase):
         if test == 'invalid_email':
             return {'email': ['Enter a valid email address.']}
         
-        if test == 'unauthenticated':
-            return {'detail': "Authentication credentials were not provided."}
-        
         if test == 'permission_denied':
             return {'detail': "You do not have permission to perform this action."}
 
-        if test == 'change_role_denied':
-            return {'detail': "You do not have permission to change the role."}
+        if test == 'change_group_denied':
+            return {'detail': "You do not have permission to change the group."}
 
-        if test == 'unauthorized_role':
+        if test == 'unauthorized_group':
             return {'detail': "You only have permission to create a visitor."}
 
         return None
@@ -98,18 +95,18 @@ class UserTestCases(UsersAPITestCase):
         self.assertEqual(response.json(),
                         self.expected_reponses_content('invalid_email'))
 
-    # user creation with unauthorized role
-    def test_unauthorized_role(self):
+    # user creation with unauthorized group
+    def test_unauthorized_group(self):
         url = reverse_lazy('user-list')
         response = self.client.post(url, {
             'username': 'poseidon',
             'email': 'poseidon@olympe.gr',
             'password': 'password',
-            'role': 'admin'
+            'group': 'admins'
             }, format='json')
         self.assertEqual(response.status_code, 403)
         self.assertEqual(response.json(), 
-                        self.expected_reponses_content('unauthorized_role'))
+                        self.expected_reponses_content('unauthorized_group'))
 
     # user retrieval
     def test_non_auth_cant_get_user(self):
@@ -145,7 +142,7 @@ class UserTestCases(UsersAPITestCase):
 
     def test_admin_can_get_user(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
-        self.client.force_authenticate(user=self.zeus)
+        self.client.force_authenticate(user=self.hera)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['email'], 'hades@olympe.gr')
@@ -219,15 +216,15 @@ class UserTestCases(UsersAPITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['email'], 'hades@gmail.com')
     
-    def test_user_cant_update_role(self):
+    def test_user_cant_update_group(self):
         url = reverse_lazy('user-detail', kwargs={'pk': self.hades.id, })
         self.client.force_authenticate(user=self.hades)
         response = self.client.patch(url, {
-            'role': 'admin'
+            'group': 'admins'
             }, format='json')
         self.assertEqual(response.status_code, 403)
         self.assertEqual(response.json(),
-                        self.expected_reponses_content('change_role_denied'))
+                        self.expected_reponses_content('change_group_denied'))
 
 
     # user deletion
