@@ -1,28 +1,52 @@
 {% extends 'client/base.html' %}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Items list</h1>
-<ul>
-    {% for item in items %}
-        <li>
-            <strong>Nom :</strong> {{ item.name }}<br>
-            <strong>Description :</strong> {{ item.description }}<br>
-            <strong>Type :</strong> {{ item.type }}<br>
-            <strong>Matériau :</strong> {{ item.material }}<br>
-            <strong>Localisation actuelle :</strong> {{ item.current_location }}<br>
-            <strong>Références :</strong> {{ item.references }}<br>
-            <strong>Auteur :</strong> {{ item.author_name }}<br>
-            <strong>Site :</strong> {{ item.site_name }}<br>
-            <strong>Famille :</strong> {{ item.family }}<br>
-            <strong>Date :</strong> {{ item.item_date }}
-        </li>
-        <hr>
-    {% empty %}
-        <li>No items found.</li>
-    {% endfor %}
-</ul>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mb-4">Welcome to Failaka</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table 
+                id="table"
+                class="table table-bordered table-hover table-striped"
+                data-toggle="table"
+                data-search="true"
+                data-pagination="true"
+                data-show-columns="true"
+                data-show-export="true">
+                <thead class="table-dark">
+                    <tr>
+                        <th data-field="name" data-sortable="true">Name</th>
+                        <th data-field="description">Description</th>
+                        <th data-field="site" data-sortable="true">Site</th>
+                        <th data-field="subsite" data-sortable="true">Subsite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'item_detail' item.uuid %}">
+                                {{ item.name }}
+                            </a>
+                        </td>
+                        <td>{{ item.description }}</td>
+                        <td>
+                            <a href="{% url 'site_detail' item.site %}">
+                                {{ item.site_name }}
+                            </a>
+                        </td>
+                        <td>{{ item.subsite.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

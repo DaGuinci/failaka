@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Default Title{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     {% include 'client/partials/header.html' %}
+    {% include 'client/partials/login_form.html' %}
     <main>
         {% block content %}
         {% endblock %}
@@ -16,5 +16,7 @@
     <footer>
         <p>&copy; 2025 My Django App</p>
     </footer>
+    <!-- Inclure le fichier Webpack -->
+    <script src="{% static 'bundle.js' %}"></script>
 </body>
 </html>

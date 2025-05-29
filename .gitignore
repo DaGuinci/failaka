@@ -28,6 +28,7 @@ MANIFEST
 
 # Custom local files
 project/
+staticfiles/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -132,6 +133,7 @@ celerybeat.pid
 
 # Environments
 .env
+.dockerenv
 .venv
 env/
 venv/
@@ -172,3 +174,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# npm
+node_modules/
+package-lock.json
+yarn-error.log

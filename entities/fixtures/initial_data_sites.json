@@ -37,6 +37,63 @@
         }
     },
     {
+        "model": "entities.site",
+        "pk": 3,
+        "fields": {
+            "author": 3,
+            "name": "Colosseum",
+            "type": "Amphitheater",
+            "description": "An ancient Roman amphitheater in Rome, Italy",
+            "keywords": ["Rome", "Gladiators", "Amphitheater"],
+            "chrono": ["70-01-01", "80-12-31"],
+            "location": [41.8902, 12.4922],
+            "location_name": "Rome, Italy",
+            "geology": "Limestone",
+            "geo_description": "Built on a flat valley between hills",
+            "historio": "Used for gladiatorial contests and public spectacles",
+            "missions": [1],
+            "justification": "A symbol of the Roman Empire's architectural ingenuity"
+        }
+    },
+    {
+        "model": "entities.site",
+        "pk": 4,
+        "fields": {
+            "author": 1,
+            "name": "Machu Picchu",
+            "type": "Inca Citadel",
+            "description": "A 15th-century Inca citadel located in Peru",
+            "keywords": ["Peru", "Inca", "Citadel"],
+            "chrono": ["1450-01-01", "1572-12-31"],
+            "location": [-13.1631, -72.5450],
+            "location_name": "Cusco Region, Peru",
+            "geology": "Granite",
+            "geo_description": "Located on a mountain ridge above the Sacred Valley",
+            "historio": "Believed to have been a royal estate or sacred religious site",
+            "missions": [1],
+            "justification": "A masterpiece of Inca engineering and architecture"
+        }
+    },
+    {
+        "model": "entities.site",
+        "pk": 5,
+        "fields": {
+            "author": 2,
+            "name": "Stonehenge",
+            "type": "Prehistoric Monument",
+            "description": "A prehistoric monument in Wiltshire, England",
+            "keywords": ["England", "Neolithic", "Monument"],
+            "chrono": ["3000-01-01", "2000-12-31"],
+            "location": [51.1789, -1.8262],
+            "location_name": "Wiltshire, England",
+            "geology": "Sarsen and Bluestone",
+            "geo_description": "Located on Salisbury Plain",
+            "historio": "Believed to have been used for ceremonial or astronomical purposes",
+            "missions": [1],
+            "justification": "One of the most famous landmarks in the UK"
+        }
+    },
+    {
         "model": "entities.subsite",
         "pk": 1,
         "fields": {
@@ -79,6 +136,51 @@
             "settle_type": "Settle Type 1",
             "material": "Material 1",
             "remains": "Remains 1"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 4,
+        "fields": {
+            "author": 3,
+            "name": "Arena Floor",
+            "site": 3,
+            "location": [41.8902, 12.4922],
+            "chrono": ["70-01-01", "80-12-31"],
+            "justification": "The central area where gladiators fought",
+            "settle_type": "Combat Zone",
+            "material": "Sand and Wood",
+            "remains": "Partially reconstructed"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 5,
+        "fields": {
+            "author": 1,
+            "name": "Sun Gate",
+            "site": 4,
+            "location": [-13.1631, -72.5450],
+            "chrono": ["1450-01-01", "1572-12-31"],
+            "justification": "A ceremonial entrance to Machu Picchu",
+            "settle_type": "Entrance",
+            "material": "Granite",
+            "remains": "Well-preserved"
+        }
+    },
+    {
+        "model": "entities.subsite",
+        "pk": 6,
+        "fields": {
+            "author": 2,
+            "name": "Heel Stone",
+            "site": 5,
+            "location": [51.1789, -1.8262],
+            "chrono": ["3000-01-01", "2000-12-31"],
+            "justification": "A single large sarsen stone outside the main circle",
+            "settle_type": "Monolith",
+            "material": "Sarsen",
+            "remains": "Intact"
         }
     }
 ]

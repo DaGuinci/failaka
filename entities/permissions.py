@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission
-from rest_framework.exceptions import PermissionDenied
+from django.contrib.auth.models import Group
 
 
 class ResourcePermission(BasePermission):
@@ -8,7 +8,7 @@ class ResourcePermission(BasePermission):
         if request.user.is_authenticated and request.user.is_superuser:
             return True
         elif view.action == 'create':
-            return (request.user.is_authenticated and request.user.role in ['admin', 'validator'])
+            return (request.user.is_authenticated and request.user.groups.filter(name__in=['admins', 'validators']).exists())
         elif view.action == 'list':
             return True
         else:
@@ -19,7 +19,7 @@ class ResourcePermission(BasePermission):
             return True
         elif request.user.is_authenticated and request.user.is_superuser:
             return True
-        elif request.user.is_authenticated and request.user.role == 'admin':
+        elif request.user.is_authenticated and request.user.groups.filter(name='admins').exists():
             return True
         elif request.user.is_authenticated and request.user == obj.author:
             return True
