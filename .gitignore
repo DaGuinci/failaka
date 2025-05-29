@@ -28,6 +28,7 @@ MANIFEST
 
 # Custom local files
 project/
+staticfiles/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
