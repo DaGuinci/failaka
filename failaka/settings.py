@@ -36,7 +36,7 @@ if os.getenv('DJANGO_ENV') == 'development':
 if DEBUG is True:
     ALLOWED_HOSTS = []
 elif DEBUG is False:
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ["evendev.net"]
 
 # Récupère la variable DJANGO_ENV avec 'production' comme valeur par défaut
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'production')
