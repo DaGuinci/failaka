@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 RUN apt-get update;
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 RUN mkdir /app
 
 ADD requirements.txt /app
