@@ -9,6 +9,8 @@ class Command(BaseCommand):
     help = "DEV COMMAND: Fill database with a set of data for testing purposes"
 
     def handle(self, *args, **options):
+        self.stdout.write("Starting initdata...")
+
         # Create groups
         groups = ['admins', 'validators', 'visitors']
         for group_name in groups:
@@ -21,6 +23,8 @@ class Command(BaseCommand):
         # Load data only in development mode
         if settings.DEBUG:
             self.stdout.write("Development mode detected. Loading fixtures...")
+
+            # Load users
             call_command('loaddata', 'initial_data_users')
 
             # Assign groups to users based on the JSON file
@@ -44,5 +48,24 @@ class Command(BaseCommand):
             for user in User.objects.all():
                 user.set_password(user.password)
                 user.save()
+
+            # Load missions
+            self.stdout.write("Loading mission data...")
+            call_command('loaddata', 'initial_data_missions')
+
+            # Load sites
+            self.stdout.write("Loading site data...")
+            call_command('loaddata', 'initial_data_sites')
+            
+            # Load items
+            self.stdout.write("Loading item data...")
+            call_command('loaddata', 'initial_data_items')
+
+            # Load others
+            self.stdout.write("Loading other data...")
+            call_command('loaddata', 'initial_data_others')
+
         else:
             self.stdout.write("Production mode detected. Skipping fixture loading.")
+
+        self.stdout.write("Database initialized successfully!")
