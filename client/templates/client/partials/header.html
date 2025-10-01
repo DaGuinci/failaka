@@ -1,16 +1,35 @@
-<header>
-    <h1>Archeology is Awesome</h1>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/sites/">Sites</a></li>
-            <!-- <li><a href="/contact/">Contact</a></li> -->
-        </ul>
-    </nav>
-    <button id="loginButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-        Login
-    </button>
-    <button id="logoutButton" class="btn btn-danger d-none">
-        Logout
-    </button>
+<header class="main-header">
+    <div class="header-container">
+        <!-- Logo section -->
+        <div class="header-logo">
+            <a href="/" class="logo-link">
+                <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="currentColor"/>
+                    <path d="M12 16L20 10L28 16V30C28 31.1046 27.1046 32 26 32H14C12.8954 32 12 31.1046 12 30V16Z" fill="white"/>
+                    <path d="M16 20H24V28H16V20Z" fill="currentColor"/>
+                    <circle cx="20" cy="24" r="2" fill="white"/>
+                </svg>
+                <span class="logo-text">Failaka</span>
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="header-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/sites/" class="nav-link">Sites</a></li>
+                <!-- <li class="nav-item"><a href="/contact/" class="nav-link">Contact</a></li> -->
+            </ul>
+        </nav>
+
+        <!-- User actions -->
+        <div class="header-actions">
+            <button id="loginButton" type="button" class="btn btn-primary login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">
+                Login
+            </button>
+            <button id="logoutButton" class="btn btn-danger logout-btn d-none">
+                Logout
+            </button>
+        </div>
+    </div>
 </header>
