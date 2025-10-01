@@ -26,7 +26,13 @@
     "jquery": "^3.7.1"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
     "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.9.4",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.2.0",
+    "sass": "^1.93.2",
+    "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4",
@@ -34,7 +40,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack-config.js",
-    "watch": "webpack --watch --config webpack-config.js"
+    "build": "webpack --config webpack-config.js --mode production",
+    "build:dev": "webpack --config webpack-config.js --mode development",
+    "watch": "webpack --watch --config webpack-config.js --mode development",
+    "dev": "webpack serve --config webpack-config.js --mode development --open"
   }
 }

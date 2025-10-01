@@ -1,0 +1,151 @@
+// Home page styles
+// ================
+
+// Welcome section
+.home-welcome {
+  .welcome-title {
+    color: $failaka-blue;
+    font-weight: $font-weight-bold;
+    font-size: 2.5rem;
+    
+    @include media-breakpoint-down(md) {
+      font-size: 2rem;
+    }
+    
+    @include media-breakpoint-down(sm) {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+// Data table section
+.home-table {
+  // Enhanced table styling
+  .table {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    border: none;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    
+    // Header styling
+    .table-dark {
+      background-color: $failaka-blue;
+      border-color: darken($failaka-blue, 10%);
+      
+      th {
+        border: none;
+        font-weight: $font-weight-semibold;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.5px;
+        padding: 1rem 0.75rem;
+      }
+    }
+    
+    // Body styling
+    tbody {
+      tr {
+        border: none;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: mix($failaka-blue, white, 5%);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        td {
+          border: none;
+          border-bottom: 1px solid $border-color;
+          padding: 1rem 0.75rem;
+          vertical-align: middle;
+          
+          // Links styling
+          a {
+            color: $failaka-blue;
+            text-decoration: none;
+            font-weight: $font-weight-medium;
+            transition: color 0.2s ease;
+            
+            &:hover {
+              color: darken($failaka-blue, 15%);
+              text-decoration: underline;
+            }
+          }
+        }
+        
+        &:last-child td {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  
+  // Bootstrap Table toolbar styling
+  .fixed-table-toolbar {
+    padding: 1rem 0;
+    
+    .search input {
+      border-radius: $border-radius;
+      border: 1px solid $border-color;
+      padding: 0.5rem 0.75rem;
+      
+      &:focus {
+        border-color: $failaka-blue;
+        box-shadow: 0 0 0 0.125rem rgba($failaka-blue, 0.25);
+      }
+    }
+    
+    .columns {
+      .dropdown-toggle {
+        background-color: $failaka-blue;
+        border-color: $failaka-blue;
+        color: white;
+        
+        &:hover, &:focus {
+          background-color: darken($failaka-blue, 10%);
+          border-color: darken($failaka-blue, 10%);
+        }
+      }
+    }
+  }
+  
+  // Pagination styling
+  .fixed-table-pagination {
+    .pagination {
+      .page-link {
+        color: $failaka-blue;
+        border-color: $border-color;
+        
+        &:hover {
+          background-color: mix($failaka-blue, white, 10%);
+          border-color: $failaka-blue;
+        }
+      }
+      
+      .page-item.active .page-link {
+        background-color: $failaka-blue;
+        border-color: $failaka-blue;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@include media-breakpoint-down(lg) {
+  .home-table .table {
+    font-size: 0.875rem;
+    
+    th, td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .home-table .table {
+    th, td {
+      padding: 0.5rem 0.25rem;
+    }
+  }
+}
