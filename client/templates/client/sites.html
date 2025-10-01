@@ -1,0 +1,12 @@
+{% extends 'client/base.html' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block content %}
+    <h1>Sites</h1>
+    <ul>
+        {% for site in sites %}
+            <li><a href="{% url 'site_detail' site.uuid %}">{{ site.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
