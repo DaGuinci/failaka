@@ -2,7 +2,7 @@
 // ====================================
 
 // 1. Import des styles SCSS (compilation via Webpack)
-import '../../static/scss/main.scss';
+import '../../src/scss/main.scss';
 
 // 2. Import de jQuery et Bootstrap JS
 import './jquery';

@@ -1,0 +1,139 @@
+// Styles pour les pages d'authentification
+// ========================================
+
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $failaka-blue 0%, mix(white, $failaka-blue, 15%) 100%);
+  @include center-element;
+  
+  .auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: spacing(4);
+  }
+  
+  .auth-card {
+    @include custom-card(transparent, 3);
+    background-color: white;
+    padding: spacing(5);
+    text-align: center;
+    
+    .auth-logo {
+      margin-bottom: spacing(4);
+      
+      img {
+        max-height: 60px;
+      }
+    }
+    
+    .auth-title {
+      color: $dark-color;
+      font-weight: $font-weight-bold;
+      margin-bottom: spacing(4);
+    }
+    
+    .auth-form {
+      text-align: left;
+      
+      .form-group {
+        margin-bottom: spacing(3);
+      }
+      
+      .form-label {
+        font-weight: $font-weight-bold;
+        color: $dark-color;
+      }
+      
+      .form-control {
+        border: 2px solid mix(white, $border-color, 50%);
+        padding: spacing(3);
+        @include transition();
+        
+        &:focus {
+          border-color: $failaka-blue;
+          box-shadow: 0 0 0 0.2rem rgba($failaka-blue, 0.25);
+        }
+      }
+      
+      .btn-auth {
+        width: 100%;
+        padding: spacing(3);
+        font-weight: $font-weight-bold;
+        @include custom-button($failaka-blue);
+      }
+    }
+    
+    .auth-links {
+      margin-top: spacing(4);
+      
+      a {
+        color: $failaka-blue;
+        text-decoration: none;
+        font-size: 0.875rem;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    
+    .auth-divider {
+      margin: spacing(4) 0;
+      text-align: center;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: $border-color;
+      }
+      
+      span {
+        background-color: white;
+        padding: 0 spacing(3);
+        color: $secondary-color;
+        font-size: 0.875rem;
+      }
+    }
+  }
+  
+  .auth-footer {
+    text-align: center;
+    margin-top: spacing(4);
+    color: rgba(white, 0.8);
+    font-size: 0.875rem;
+    
+    a {
+      color: white;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Messages d'erreur dans les formulaires d'auth
+.auth-error {
+  background-color: mix(white, $danger-color, 85%);
+  color: $danger-color;
+  padding: spacing(3);
+  border-radius: $border-radius;
+  margin-bottom: spacing(3);
+  border: 1px solid mix(white, $danger-color, 70%);
+}
+
+// Messages de succès
+.auth-success {
+  background-color: mix(white, $success-color, 85%);
+  color: $success-color;
+  padding: spacing(3);
+  border-radius: $border-radius;
+  margin-bottom: spacing(3);
+  border: 1px solid mix(white, $success-color, 70%);
+}

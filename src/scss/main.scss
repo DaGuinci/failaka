@@ -1,0 +1,37 @@
+// Fichier principal SCSS pour Failaka
+// =================================
+
+// 1. Variables et configuration
+@import 'utils/variables';
+
+// 2. Surcharges Bootstrap
+@import 'utils/bootstrap-overrides';
+
+// 3. Bootstrap depuis node_modules
+@import '~bootstrap/scss/bootstrap';
+
+// 4. Bootstrap Icons
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+// 5. Bootstrap Table
+@import '~bootstrap-table/dist/bootstrap-table.min.css';
+
+// 6. Utilitaires
+@import 'utils/mixins';
+@import 'utils/functions';
+
+// 7. Styles de base
+@import 'base';
+
+// 8. Composants
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/navigation';
+@import 'components/cards';
+@import 'components/tables';
+
+// 9. Pages spécifiques
+@import 'pages/home';
+@import 'pages/authentication';
+@import 'pages/client';
+@import 'pages/entities';

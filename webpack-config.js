@@ -7,24 +7,26 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'static'),
         filename: 'bundle.js',
-        clean: true, // Nettoie le dossier de sortie
+        clean: true,
+    },
+    resolve: {
+        extensions: ['.js', '.scss', '.css'],
+        alias: {
+            '@scss': path.resolve(__dirname, 'src/scss'),
+        },
     },
     module: {
         rules: [
-            // Règle pour les fichiers SCSS/CSS
             {
                 test: /\.(scss|css)$/i,
                 use: [
-                    // Extrait le CSS dans des fichiers séparés
                     MiniCssExtractPlugin.loader,
-                    // Traite les imports CSS et url()
                     {
                         loader: 'css-loader',
                         options: {
                             sourceMap: true,
                         }
                     },
-                    // Ajoute les préfixes vendeur automatiquement
                     {
                         loader: 'postcss-loader',
                         options: {
@@ -36,7 +38,6 @@ module.exports = {
                             sourceMap: true,
                         }
                     },
-                    // Compile SCSS en CSS
                     {
                         loader: 'sass-loader',
                         options: {
@@ -44,14 +45,13 @@ module.exports = {
                             sassOptions: {
                                 includePaths: [
                                     path.resolve(__dirname, 'node_modules'),
-                                    path.resolve(__dirname, 'static/scss'),
+                                    path.resolve(__dirname, 'src/scss'),
                                 ],
                             },
                         }
                     },
                 ],
             },
-            // Règle pour les fonts et images
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
@@ -78,9 +78,6 @@ module.exports = {
             chunkFilename: '[id].css',
         }),
     ],
-    resolve: {
-        extensions: ['.js', '.scss', '.css'],
-    },
     mode: 'development',
-    devtool: 'source-map', // Source maps pour le debug
+    devtool: 'source-map',
 };
