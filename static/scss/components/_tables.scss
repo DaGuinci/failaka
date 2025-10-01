@@ -1,0 +1,128 @@
+// Styles pour les tableaux
+// ========================
+
+.table-failaka {
+  @include custom-shadow(1);
+  border-radius: $border-radius;
+  overflow: hidden;
+  background-color: white;
+  
+  thead {
+    background-color: $failaka-blue;
+    
+    th {
+      color: white;
+      font-weight: $font-weight-bold;
+      border-bottom: none;
+      padding: spacing(3);
+      
+      a {
+        color: white;
+        text-decoration: none;
+        
+        &:hover {
+          color: rgba(white, 0.9);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      @include transition();
+      
+      &:hover {
+        background-color: mix(white, $failaka-blue, 96%);
+      }
+      
+      td {
+        padding: spacing(3);
+        border-bottom: 1px solid mix(white, $border-color, 50%);
+      }
+    }
+  }
+  
+  // Styles pour les actions
+  .table-actions {
+    white-space: nowrap;
+    
+    .btn {
+      margin-right: spacing(1);
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// Table responsive
+.table-responsive-failaka {
+  @include custom-shadow(1);
+  border-radius: $border-radius;
+  
+  @include respond-to(xs) {
+    font-size: 0.875rem;
+    
+    .table-actions {
+      .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+// Table avec filtres
+.table-with-filters {
+  .table-filters {
+    background-color: $light-color;
+    padding: spacing(3);
+    border-radius: $border-radius $border-radius 0 0;
+    border: 1px solid $border-color;
+    border-bottom: none;
+    
+    .form-control, .form-select {
+      margin-bottom: spacing(2);
+      
+      @include respond-to(md) {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .table {
+    border-radius: 0 0 $border-radius $border-radius;
+    margin-bottom: 0;
+  }
+}
+
+// Pagination personnalisée
+.pagination-failaka {
+  .page-link {
+    color: $failaka-blue;
+    border-color: $border-color;
+    @include transition();
+    
+    &:hover {
+      background-color: mix(white, $failaka-blue, 85%);
+      border-color: $failaka-blue;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($failaka-blue, 0.25);
+    }
+  }
+  
+  .page-item.active .page-link {
+    background-color: $failaka-blue;
+    border-color: $failaka-blue;
+  }
+  
+  .page-item.disabled .page-link {
+    color: $secondary-color;
+    background-color: $light-color;
+    border-color: $border-color;
+  }
+}

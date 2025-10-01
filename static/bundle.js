@@ -18350,19 +18350,6 @@ return jQuery;
 } );
 
 
-/***/ }),
-
-/***/ "./static/scss/main.scss":
-/*!*******************************!*\
-  !*** ./static/scss/main.scss ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
 /***/ })
 
 /******/ 	});
@@ -18441,7 +18428,7 @@ var __webpack_exports__ = {};
   !*** ./assets/js/index.js ***!
   \****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _static_scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../static/scss/main.scss */ "./static/scss/main.scss");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../static/scss/main.scss'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var _jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./jquery */ "./assets/js/jquery.js");
 /* harmony import */ var bootstrap_dist_js_bootstrap_bundle_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap/dist/js/bootstrap.bundle.min.js */ "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js");
 /* harmony import */ var bootstrap_dist_js_bootstrap_bundle_min_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_js_bootstrap_bundle_min_js__WEBPACK_IMPORTED_MODULE_2__);
