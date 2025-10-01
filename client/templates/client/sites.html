@@ -1,0 +1,37 @@
+{% extends 'client/base.html' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <table 
+                id="table"
+                class="table table-bordered table-hover table-striped"
+                data-toggle="table"
+                data-search="true"
+                data-pagination="true"
+                data-show-columns="true"
+                data-show-export="true">
+                <thead class="table-dark">
+                    <tr>
+                        <th data-field="name" data-sortable="true">Name</th>
+                        <th data-field="description">Description</th>
+                        <th data-field="location" data-sortable="true">Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for site in sites %}
+                    <tr>
+                        <td>{{ site.name }}</td>
+                        <td>{{ site.description }}</td>
+                        <td>{{ site.location }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -41,6 +41,28 @@ def item_detail(request, item_uuid):
     # Render the template with the item details
     return render(request, 'client/item_detail.html', {'item': item})
 
+def sites_list(request):
+    # API URL to retrieve sites
+    base_api_url = request.build_absolute_uri('/api/')
+    sites = []
+
+    try:
+        # Initial URL for the first page
+        url = base_api_url + 'sites/'
+        while url:
+            # Make a GET request to the API using CoreAPI
+            response = client.get(url)
+            sites.extend(response.get('results', []))  # Append the results to the sites list
+            url = response.get('next')  # Get the URL for the next page
+
+    except coreapi.exceptions.ErrorMessage as e:
+        # In case of an error, display an error message
+        print(f"Error while retrieving sites: {e}")
+
+    # Render the template with the sites
+    return render(request, 'client/sites.html', {'sites': sites})
+
+
 def site_detail(request, site_uuid):
     # API URL to retrieve site details
     base_api_url = request.build_absolute_uri('/api/')

@@ -5,17 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Default Title{% endblock %}</title>
+    <!-- Styles CSS générés par Webpack -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
-    {% include 'client/partials/header.html' %}
-    {% include 'client/partials/login_form.html' %}
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2025 My Django App</p>
-    </footer>
+    <div class="global-container">
+        {% include 'client/partials/header.html' %}
+        {% include 'client/partials/login_form.html' %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2025 Evendev.net</p>
+        </footer>
+    </div>
     <!-- Inclure le fichier Webpack -->
     <script src="{% static 'bundle.js' %}"></script>
 </body>
