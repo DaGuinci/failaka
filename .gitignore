@@ -179,3 +179,6 @@ cython_debug/
 node_modules/
 package-lock.json
 yarn-error.log
+
+# workflow files
+myNotes.md
