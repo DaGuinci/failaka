@@ -54,8 +54,12 @@ jobs:
         cp -r client/ deploy-package/
         cp -r entities/ deploy-package/
         cp -r failaka/ deploy-package/
-        cp -r resources/ deploy-package/
-        cp -r templates/ deploy-package/ 2>/dev/null || true
+        
+        # Copier resources s'il contient des fichiers
+        if [ "$(ls -A resources/ 2>/dev/null)" ]; then
+          cp -r resources/ deploy-package/
+        fi
+        cp -r templates/ deploy-package/ 2>/dev/null || echo "ℹ️ Pas de dossier templates/"
         
         # Copier les fichiers de configuration
         cp manage.py deploy-package/

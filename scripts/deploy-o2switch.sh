@@ -40,11 +40,19 @@ cp -r authentication/ $DEPLOY_DIR/
 cp -r client/ $DEPLOY_DIR/
 cp -r entities/ $DEPLOY_DIR/
 cp -r failaka/ $DEPLOY_DIR/
-cp -r resources/ $DEPLOY_DIR/
+
+# Copier resources s'il contient des fichiers
+if [ "$(ls -A resources/ 2>/dev/null)" ]; then
+    echo "📦 Copie du dossier resources..."
+    cp -r resources/ $DEPLOY_DIR/
+fi
 
 # Copier les templates s'ils existent
 if [ -d "templates/" ]; then
+    echo "📄 Copie des templates..."
     cp -r templates/ $DEPLOY_DIR/
+else
+    echo "ℹ️ Pas de dossier templates/"
 fi
 
 # Copier les fichiers de configuration
