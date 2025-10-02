@@ -1,0 +1,105 @@
+name: Deploy to O2switch
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment even without changes'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install Node dependencies
+      run: npm ci
+      
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Build SCSS assets
+      run: npm run build
+      
+    - name: Collect static files
+      run: |
+        python manage.py collectstatic --noinput
+        
+    - name: Create deployment package
+      run: |
+        # Créer un dossier temporaire pour les fichiers à déployer
+        mkdir -p deploy-package
+        
+        # Copier les fichiers Python/Django
+        cp -r authentication/ deploy-package/
+        cp -r client/ deploy-package/
+        cp -r entities/ deploy-package/
+        cp -r failaka/ deploy-package/
+        cp -r resources/ deploy-package/
+        cp -r templates/ deploy-package/ 2>/dev/null || true
+        
+        # Copier les fichiers de configuration
+        cp manage.py deploy-package/
+        cp requirements.txt deploy-package/
+        
+        # Copier les fichiers statiques buildés
+        cp -r staticfiles/ deploy-package/static/
+        
+        # Créer un fichier de version
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - $(git rev-parse --short HEAD)" > deploy-package/version.txt
+        
+    - name: Deploy to O2switch via SFTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.O2SWITCH_SFTP_HOST }}
+        username: ${{ secrets.O2SWITCH_SFTP_USERNAME }}
+        password: ${{ secrets.O2SWITCH_SFTP_PASSWORD }}
+        port: ${{ secrets.O2SWITCH_SFTP_PORT || 21 }}
+        protocol: ftp
+        local-dir: ./deploy-package/
+        server-dir: ./
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/__pycache__/**
+          **/*.pyc
+          **/.env
+          **/env/**
+          **/venv/**
+          **/.DS_Store
+          **/Thumbs.db
+          **/tests/**
+          **/*.test.js
+          **/*.test.py
+          
+    - name: Cleanup
+      run: rm -rf deploy-package
+      
+    - name: Deployment notification
+      if: success()
+      run: |
+        echo "✅ Déploiement réussi vers O2switch"
+        echo "📅 Date: $(date)"
+        echo "🔖 Commit: $(git rev-parse --short HEAD)"
+        echo "📝 Message: $(git log -1 --pretty=%B)"
