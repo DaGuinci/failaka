@@ -102,7 +102,7 @@ jobs:
     - name: Deployment notification
       if: success()
       run: |
-        echo "✅ Déploiement réussi vers O2switch"
+        echo "✅ Déploiement réussi"
         echo "📅 Date: $(date)"
         echo "🔖 Commit: $(git rev-parse --short HEAD)"
         echo "📝 Message: $(git log -1 --pretty=%B)"
