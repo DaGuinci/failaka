@@ -47,12 +47,12 @@ if [ "$(ls -A resources/ 2>/dev/null)" ]; then
     cp -r resources/ $DEPLOY_DIR/
 fi
 
-# Copier les templates s'ils existent
+# Copier les templates s'ils existent au niveau racine
 if [ -d "templates/" ]; then
-    echo "📄 Copie des templates..."
+    echo "📄 Copie des templates racine..."
     cp -r templates/ $DEPLOY_DIR/
 else
-    echo "ℹ️ Pas de dossier templates/"
+    echo "ℹ️ Pas de dossier templates/ racine (templates dans les apps)"
 fi
 
 # Copier les fichiers de configuration
@@ -62,7 +62,8 @@ cp requirements.txt $DEPLOY_DIR/
 
 # Copier les fichiers statiques buildés
 echo "🎨 Copie des assets..."
-cp -r staticfiles/ $DEPLOY_DIR/static/
+mkdir -p $DEPLOY_DIR/static/
+cp -r staticfiles/* $DEPLOY_DIR/static/ 2>/dev/null || echo "⚠️ Pas de fichiers dans staticfiles"
 
 # Créer un fichier de version
 echo "📋 Création du fichier de version..."
