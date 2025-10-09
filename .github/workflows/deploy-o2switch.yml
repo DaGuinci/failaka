@@ -88,7 +88,7 @@ jobs:
           **/node_modules/**
           **/__pycache__/**
           **/*.pyc
-          **/.env
+          **/.env*
           **/env/**
           **/venv/**
           **/.DS_Store
@@ -96,6 +96,14 @@ jobs:
           **/tests/**
           **/*.test.js
           **/*.test.py
+          **/src/**
+          **/docs/**
+          **/webpack-config.js
+          **/package.json
+          **/package-lock.json
+          **/.dockerignore
+          **/Dockerfile*
+          **/docker-compose*
           
     - name: Cleanup
       run: rm -rf deploy-package

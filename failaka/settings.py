@@ -34,41 +34,25 @@ DEBUG = False
 # Get the current environment
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'prod')
 
-# Database configuration based on the environment
+# Set DEBUG based on environment
 if DJANGO_ENV == 'dev':
     DEBUG = True
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME_DEV'),
-            'USER': os.getenv('DB_USER_DEV'),
-            'PASSWORD': os.getenv('DB_PASSWORD_DEV'),
-            'HOST': os.getenv('DB_HOST_DEV'),
-            'PORT': os.getenv('DB_PORT_DEV'),
-        }
-    }
 elif DJANGO_ENV == 'preprod':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME_PREPROD'),
-            'USER': os.getenv('DB_USER_PREPROD'),
-            'PASSWORD': os.getenv('DB_PASSWORD_PREPROD'),
-            'HOST': os.getenv('DB_HOST_PREPROD'),
-            'PORT': os.getenv('DB_PORT_PREPROD'),
-        }
-    }
+    DEBUG = False
 else:  # prod
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME_PROD'),
-            'USER': os.getenv('DB_USER_PROD'),
-            'PASSWORD': os.getenv('DB_PASSWORD_PROD'),
-            'HOST': os.getenv('DB_HOST_PROD'),
-            'PORT': os.getenv('DB_PORT_PROD'),
-        }
+    DEBUG = False
+
+# Database configuration - uses simple environment variables
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
+}
 
 
 # Allowed hosts configuration

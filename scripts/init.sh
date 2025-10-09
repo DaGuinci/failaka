@@ -9,6 +9,9 @@ python manage.py migrate --noinput
 echo "${0}: populating database."
 python manage.py initdata
 
+echo "${0}: building assets."
+npm run build
+
 echo "${0}: collecting statics."
 python manage.py collectstatic --noinput
 

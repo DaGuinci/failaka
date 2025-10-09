@@ -1,0 +1,15 @@
+# Fichier .htaccess pour O2switch
+RewriteEngine On
+
+# Rediriger vers l'application Python
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /cgi-bin/django.py/$1 [QSA,L]
+
+# Servir les fichiers statiques directement
+RewriteCond %{REQUEST_URI} ^/static/
+RewriteRule ^(.*)$ - [L]
+
+# Configuration pour les fichiers Python
+AddHandler cgi-script .py
+Options +ExecCGI

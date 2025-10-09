@@ -22,9 +22,9 @@ services:
     image: postgres:15
     container_name: postgres_db
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: local-failaka
+      POSTGRES_USER: turist
+      POSTGRES_PASSWORD: L0$$tInTime
     ports:
       - "5433:5432"
     volumes:

@@ -9,7 +9,7 @@ echo "🚀 Déploiement Failaka vers O2switch"
 echo "======================================"
 
 # Configuration (à personnaliser)
-SFTP_HOST="${O2SWITCH_SFTP_HOST:-votre-domaine.o2switch.net}"
+SFTP_HOST="${O2SWITCH_SFTP_HOST:-failaka.evendev.net}"
 SFTP_USER="${O2SWITCH_SFTP_USERNAME:-github-deploy}"
 SFTP_PORT="${O2SWITCH_SFTP_PORT:-21}"
 DEPLOY_DIR="deploy-package"
