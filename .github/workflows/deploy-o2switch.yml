@@ -64,6 +64,10 @@ jobs:
         # Copier les fichiers de configuration
         cp manage.py deploy-package/
         cp requirements.txt deploy-package/
+        cp .htaccess deploy-package/
+        
+        # Copier le script CGI pour O2switch
+        cp -r cgi-bin/ deploy-package/
         
         # Copier SEULEMENT les assets buildés (pas les sources ni node_modules)
         mkdir -p deploy-package/static/
