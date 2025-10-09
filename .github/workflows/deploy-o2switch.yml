@@ -65,7 +65,7 @@ jobs:
         cp manage.py deploy-package/
         cp requirements.txt deploy-package/
         
-        # Copier les fichiers statiques buildés
+        # Copier SEULEMENT les assets buildés (pas les sources ni node_modules)
         mkdir -p deploy-package/static/
         cp -r staticfiles/* deploy-package/static/ 2>/dev/null || echo "⚠️ Pas de fichiers dans staticfiles"
         
@@ -85,7 +85,6 @@ jobs:
         exclude: |
           **/.git*
           **/.git*/**
-          **/node_modules/**
           **/__pycache__/**
           **/*.pyc
           **/.env*
@@ -96,14 +95,6 @@ jobs:
           **/tests/**
           **/*.test.js
           **/*.test.py
-          **/src/**
-          **/docs/**
-          **/webpack-config.js
-          **/package.json
-          **/package-lock.json
-          **/.dockerignore
-          **/Dockerfile*
-          **/docker-compose*
           
     - name: Cleanup
       run: rm -rf deploy-package

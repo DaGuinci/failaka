@@ -59,11 +59,27 @@ fi
 echo "⚙️ Copie des fichiers de configuration..."
 cp manage.py $DEPLOY_DIR/
 cp requirements.txt $DEPLOY_DIR/
+cp package.json $DEPLOY_DIR/
+cp webpack-config.js $DEPLOY_DIR/
 
-# Copier les fichiers statiques buildés
-echo "🎨 Copie des assets..."
-mkdir -p $DEPLOY_DIR/static/
-cp -r staticfiles/* $DEPLOY_DIR/static/ 2>/dev/null || echo "⚠️ Pas de fichiers dans staticfiles"
+# Copier les sources (pas les node_modules)
+echo "📁 Copie des sources..."
+cp -r src/ $DEPLOY_DIR/
+cp -r assets/ $DEPLOY_DIR/
+
+# Créer un script de build pour O2switch
+echo "📋 Création du script de build..."
+cat > $DEPLOY_DIR/build-assets.sh << 'EOF'
+#!/bin/bash
+echo "📦 Installation des dépendances npm..."
+npm install --production
+echo "🎨 Build des assets..."
+npm run build
+echo "📂 Collecte des fichiers statiques..."
+python manage.py collectstatic --noinput
+echo "✅ Build terminé !"
+EOF
+chmod +x $DEPLOY_DIR/build-assets.sh
 
 # Créer un fichier de version
 echo "📋 Création du fichier de version..."
