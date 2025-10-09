@@ -67,7 +67,7 @@ jobs:
         
         # Copier SEULEMENT les assets buildés (pas les sources ni node_modules)
         mkdir -p deploy-package/static/
-        cp -r staticfiles/* deploy-package/static/ 2>/dev/null || echo "⚠️ Pas de fichiers dans staticfiles"
+        cp -r static/* deploy-package/static/ 2>/dev/null || echo "⚠️ No files in static/"
         
         # Créer un fichier de version
         echo "$(date '+%Y-%m-%d %H:%M:%S') - $(git rev-parse --short HEAD)" > deploy-package/version.txt
