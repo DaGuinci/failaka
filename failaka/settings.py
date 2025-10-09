@@ -59,7 +59,7 @@ DATABASES = {
 if DEBUG is True:
     ALLOWED_HOSTS = []
 elif DEBUG is False:
-    ALLOWED_HOSTS = ["evendev.net"]
+    ALLOWED_HOSTS = ["failaka.evendev.net", "evendev.net"]
 
 
 # Application definition
