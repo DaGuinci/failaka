@@ -3,13 +3,18 @@
 
 import os
 import sys
-import django
-from django.core.wsgi import get_wsgi_application
 
 # Ajouter le répertoire de l'application au Python path
-import os
 script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, script_dir)
+
+# Ajouter les dépendances embarquées si elles existent
+vendor_dir = os.path.join(script_dir, 'vendor')
+if os.path.exists(vendor_dir):
+    sys.path.insert(0, vendor_dir)
+
+import django
+from django.core.wsgi import get_wsgi_application
 
 # Définir le module de configuration Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'failaka.settings')

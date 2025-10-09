@@ -37,6 +37,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
+        # Installer Django dans un dossier local pour l'embarquer
+        pip install --target ./vendor django psycopg2-binary python-dotenv
+        
     - name: Build SCSS assets
       run: npm run build
       
@@ -66,8 +69,17 @@ jobs:
         cp requirements.txt deploy-package/
         cp .htaccess deploy-package/
         
+        # Copier les dépendances Python embarquées
+        if [ -d "./vendor" ]; then
+          cp -r vendor/ deploy-package/
+        fi
+        
         # Copier le script CGI pour O2switch
         cp -r cgi-bin/ deploy-package/
+        
+        # Rendre le script CGI exécutable
+        chmod +x deploy-package/cgi-bin/django.py
+        chmod +x deploy-package/cgi-bin/debug.py
         
         # Copier SEULEMENT les assets buildés (pas les sources ni node_modules)
         mkdir -p deploy-package/static/
