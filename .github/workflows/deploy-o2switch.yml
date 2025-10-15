@@ -37,8 +37,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-        # Installer Django compatible Python 3.6 complet (sans asgiref récent)
-        pip install --target ./vendor "django>=2.2,<3.0" psycopg2-binary python-dotenv contextvars
+        # Installer Django moderne avec Python 3.12
+        pip install --target ./vendor django psycopg2-binary python-dotenv
         
     - name: Build SCSS assets
       run: npm run build
