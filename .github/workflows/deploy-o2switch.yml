@@ -108,18 +108,6 @@ jobs:
           **/*.test.js
           **/*.test.py
           
-    - name: Fix permissions via SFTP
-      run: |
-        # Installer lftp pour les commandes SFTP avancées
-        sudo apt-get update && sudo apt-get install -y lftp
-        
-        # Corriger les permissions du script CGI
-        lftp -u "${{ secrets.O2SWITCH_SFTP_USERNAME }}","${{ secrets.O2SWITCH_SFTP_PASSWORD }}" "${{ secrets.O2SWITCH_SFTP_HOST }}" << EOF
-        chmod 755 cgi-bin/django.py
-        chmod 755 cgi-bin/debug.py
-        quit
-        EOF
-          
     - name: Cleanup
       run: rm -rf deploy-package
       
