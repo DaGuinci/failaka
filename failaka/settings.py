@@ -38,7 +38,7 @@ DJANGO_ENV = os.getenv('DJANGO_ENV', 'prod')
 if DJANGO_ENV == 'dev':
     DEBUG = True
 elif DJANGO_ENV == 'preprod':
-    DEBUG = False
+    DEBUG = True
 else:  # prod
     DEBUG = False
 
