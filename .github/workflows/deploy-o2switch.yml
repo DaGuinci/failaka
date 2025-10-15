@@ -76,11 +76,7 @@ jobs:
         
         # Copier le script CGI pour O2switch
         cp -r cgi-bin/ deploy-package/
-        
-        # Rendre le script CGI exécutable
-        chmod +x deploy-package/cgi-bin/django.py
-        chmod +x deploy-package/cgi-bin/debug.py
-        
+                
         # Copier SEULEMENT les assets buildés (pas les sources ni node_modules)
         mkdir -p deploy-package/static/
         cp -r static/* deploy-package/static/ 2>/dev/null || echo "⚠️ No files in static/"
