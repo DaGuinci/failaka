@@ -37,8 +37,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-        # Installer Django moderne avec Python 3.12
-        pip install --target ./vendor django psycopg2-binary python-dotenv
+        # Ne plus embarquer Django - on l'installera via SSH sur O2switch
         
     - name: Build SCSS assets
       run: npm run build
@@ -69,10 +68,7 @@ jobs:
         cp requirements.txt deploy-package/
         cp .htaccess deploy-package/
         
-        # Copier les dépendances Python embarquées
-        if [ -d "./vendor" ]; then
-          cp -r vendor/ deploy-package/
-        fi
+        # Ne plus copier vendor/ - on utilisera SSH pour installer Django
         
         # Copier le script CGI pour O2switch
         cp -r cgi-bin/ deploy-package/
@@ -107,6 +103,17 @@ jobs:
           **/tests/**
           **/*.test.js
           **/*.test.py
+          
+    - name: Install Django via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.O2SWITCH_SFTP_HOST }}
+        username: ${{ secrets.O2SWITCH_SFTP_USERNAME }}
+        password: ${{ secrets.O2SWITCH_SFTP_PASSWORD }}
+        script: |
+          cd /home/gufo9311/failaka.evendev.net
+          python3 -m pip install --user django psycopg2-binary python-dotenv
+          echo "Django installed successfully"
           
     - name: Cleanup
       run: rm -rf deploy-package
