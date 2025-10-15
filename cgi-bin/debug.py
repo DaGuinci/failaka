@@ -2,35 +2,51 @@
 # -*- coding: utf-8 -*-
 
 print("Content-Type: text/html\n")
-print("<h1>O2switch Python Environment</h1>")
+print("<h1>O2switch Django Debug</h1>")
 
 try:
     import sys
+    import os
     print(f"<p>Python version: {sys.version}</p>")
-    print(f"<p>Python path: {sys.path[:5]}</p>")
     
-    # Test des modules disponibles
-    modules_to_test = ['django', 'sqlite3', 'os', 'json', 'urllib']
+    # Test du répertoire de l'application
+    script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    print(f"<p>App directory: {script_dir}</p>")
+    print(f"<p>Files in app dir: {os.listdir(script_dir)[:10]}</p>")
     
-    for module in modules_to_test:
-        try:
-            __import__(module)
-            print(f"<p>✅ {module} available</p>")
-        except ImportError:
-            print(f"<p>❌ {module} NOT available</p>")
+    # Ajouter les chemins comme dans django.py
+    sys.path.insert(0, script_dir)
+    vendor_dir = os.path.join(script_dir, 'vendor')
+    if os.path.exists(vendor_dir):
+        sys.path.insert(0, vendor_dir)
+        print(f"<p>✅ Vendor directory found</p>")
+    else:
+        print(f"<p>⚠️ No vendor directory</p>")
     
-    # Liste des modules installés
-    print("<h2>Installed packages:</h2>")
+    # Test d'import Django
     try:
-        import pkg_resources
-        installed = [d.project_name for d in pkg_resources.working_set]
-        print(f"<p>Found {len(installed)} packages</p>")
-        for pkg in sorted(installed)[:20]:  # Premiers 20
-            print(f"<p>• {pkg}</p>")
-    except:
-        print("<p>Cannot list packages</p>")
+        import django
+        print(f"<p>✅ Django found: {django.VERSION}</p>")
+        
+        # Test des settings
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'failaka.settings')
+        print(f"<p>✅ Settings module set</p>")
+        
+        # Test setup Django
+        django.setup()
+        print(f"<p>✅ Django setup OK</p>")
+        
+        # Test WSGI
+        from django.core.wsgi import get_wsgi_application
+        app = get_wsgi_application()
+        print(f"<p>✅ WSGI application created: {type(app)}</p>")
+        
+    except Exception as django_error:
+        print(f"<p>❌ Django error: {django_error}</p>")
+        import traceback
+        print(f"<pre>{traceback.format_exc()}</pre>")
         
 except Exception as e:
-    print(f"<p>❌ Error: {e}</p>")
+    print(f"<p>❌ General error: {e}</p>")
     import traceback
     print(f"<pre>{traceback.format_exc()}</pre>")
