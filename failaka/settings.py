@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET')
+SECRET_KEY = os.getenv('SECRET') or 'fallback-secret-key-for-o2switch-change-me'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -35,10 +35,10 @@ DEBUG = False
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'prod')
 
 # Set DEBUG based on environment
-if DJANGO_ENV == 'dev':
+if DJANGO_ENV == 'dev' or DJANGO_ENV == 'development':  # Passenger utilise "development"
     DEBUG = True
 elif DJANGO_ENV == 'preprod':
-    DEBUG = True
+    DEBUG = False
 else:  # prod
     DEBUG = False
 
@@ -81,6 +81,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Pour servir les fichiers statiques
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -185,10 +186,13 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    BASE_DIR / "node_modules",
+    # BASE_DIR / "node_modules",  # Disabled for O2switch
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Configuration WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

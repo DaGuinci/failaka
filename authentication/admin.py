@@ -22,13 +22,13 @@ class UserAdminForm(forms.ModelForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name')  # Champs affichés dans le formulaire
+        fields = ('email', 'first_name', 'last_name')  # Fields displayed in the form
 
 
 @admin.register(User)
 class UserAdmin(DefaultUserAdmin):
     form = UserAdminForm
-    add_form = CustomUserCreationForm  # Utilise le formulaire personnalisé pour l'ajout
+    add_form = CustomUserCreationForm  # Use custom form for user creation
     list_display = ('email', 'first_name', 'last_name', 'is_staff', 'get_group')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email', 'first_name', 'last_name')

@@ -25,11 +25,11 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
-    username = None  # Supprime le champ username
-    email = models.EmailField(unique=True)  # Utilise email comme identifiant unique
+    username = None  # Remove username field
+    email = models.EmailField(unique=True)  # Use email as unique identifier
 
-    USERNAME_FIELD = 'email'  # Définit email comme champ principal
-    REQUIRED_FIELDS = []  # Aucun champ supplémentaire requis
+    USERNAME_FIELD = 'email'  # Define email as primary field
+    REQUIRED_FIELDS = []  # No additional required fields
 
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     first_name = models.CharField(max_length=150, blank=True)
@@ -41,7 +41,7 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.groups.count() > 1:
-            # Si l'utilisateur appartient à plusieurs groupes, ne garder que le dernier ajouté
+            # If user belongs to multiple groups, keep only the last added one
             last_group = self.groups.last()
             self.groups.set([last_group])
 

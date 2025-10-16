@@ -9,12 +9,12 @@ try:
     import os
     print(f"<p>Python version: {sys.version}</p>")
     
-    # Test du répertoire de l'application
+    # Test application directory
     script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     print(f"<p>App directory: {script_dir}</p>")
     print(f"<p>Files in app dir: {os.listdir(script_dir)[:10]}</p>")
     
-    # Ajouter les chemins comme dans django.py
+    # Add paths like in django.py
     sys.path.insert(0, script_dir)
     vendor_dir = os.path.join(script_dir, 'vendor')
     if os.path.exists(vendor_dir):

@@ -11,5 +11,5 @@ class CommentViewset(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def perform_create(self, serializer):
-        # Attribue l'auteur à partir de l'utilisateur authentifié
+        # Assign author from authenticated user
         serializer.save(author=self.request.user)
