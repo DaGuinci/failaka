@@ -29,16 +29,16 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET') or 'fallback-secret-key-for-o2switch-change-me'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True  # Temporarily enabled to see errors on O2switch
 
 # Get the current environment
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'prod')
 
 # Set DEBUG based on environment
-if DJANGO_ENV == 'dev' or DJANGO_ENV == 'development':  # Passenger utilise "development"
+if DJANGO_ENV == 'dev' or DJANGO_ENV == 'development':  # Passenger uses "development"
     DEBUG = True
 elif DJANGO_ENV == 'preprod':
-    DEBUG = False
+    DEBUG = True
 else:  # prod
     DEBUG = False
 
@@ -49,15 +49,15 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),  # Default to avoid IPv6 issues
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
 
 # Allowed hosts configuration
 if DEBUG is True:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ["failaka.evendev.net", "evendev.net", "localhost", "127.0.0.1"]
 elif DEBUG is False:
     ALLOWED_HOSTS = ["failaka.evendev.net", "evendev.net"]
 
